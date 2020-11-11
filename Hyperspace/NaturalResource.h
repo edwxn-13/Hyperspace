@@ -1,4 +1,9 @@
 #pragma once
-class NaturalResource {
+class NaturalResource
+{
+  int ResourceID;
+  int amount;
+  float regenRate;
+  
 };
 

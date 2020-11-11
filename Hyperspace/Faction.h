@@ -2,12 +2,13 @@
 #include "NaturalResource.h"
 class Faction {
 public:
-  Faction()
-  {
-
-  }
+    Faction();
 
 private:
+  int storage;
   int credits;
+  
+  
+  void factionRefresh();
 };
 

@@ -4,40 +4,44 @@
 #include "GameWorld.h"
 
 
-Player InitGame()
+Player InitGame(GameWorld world)
 {
   Player userPlayer;
   std::string playerName;
+  
   std::cout << "Welcome to Hypderspace \nEnter your name \n";
   std::cin >> playerName;
   userPlayer.setName(playerName);
   std::cout << "Welcome back commander " << playerName << "\n";
-
-  GameWorld.Generate();
+  
+  int size;
+  std::cin >> size;
+  world.Generate(size);
+  
   return userPlayer;
 }
 
-Player Travel(Player user)
+Player Travel(Player user , GameWorld world)
 {
-
-  DisplayMap(starMap);
+  DisplayMap(world.GetMap() , world);
   Coords pos = Navigation();
   user.locCord = pos.x;
-  user.CurrentPlanet = JumpDrive(pos,starMap);
+  user.CurrentPlanet = JumpDrive(pos,world.GetMap());
 
   return user;
 }
 
-void GameLoop(Player user) 
+void GameLoop(Player user , GameWorld world)
 {
   while (user.alive) 
   {
-    user = Travel(user);
+    user = Travel(user,world);
   }
 }
 
 int main() 
 {
-  GameLoop(InitGame());
+  GameWorld world;
+  GameLoop(InitGame(world), world);
 }
 

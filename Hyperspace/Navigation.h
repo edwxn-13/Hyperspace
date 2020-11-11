@@ -4,14 +4,14 @@
 #include <vector>
 #include "Planet.h"
 #include "Encounters.h"
-
+#include "GameWorld.h"
 using namespace std;
 
-struct Coords {int x;};
+struct Coords {int x, y;};
 struct Map { vector<Planet> map;};
 Map InitGalaxy();
-void DisplayMap(Map mapVal);
+void DisplayMap(std::vector< std::vector<Sector>> mapVal , GameWorld);
 Coords Navigation();
-Planet JumpDrive(Coords val, Map mapVal);
+Sector JumpDrive(Coords val, std::vector< std::vector<Sector>> mapVal);
 
 

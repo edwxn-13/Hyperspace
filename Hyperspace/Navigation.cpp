@@ -3,33 +3,26 @@
 #include <fstream>
 #include <string>
 #include "Navigation.h"
+#include "GameWorld.h"
 #include <time.h>
 
 
-Map InitGalaxy()
+void DisplayMap(std::vector< std::vector<Sector>> mapVal, GameWorld world)
 {
-  srand(time(0));
-  vector<Planet> GalaxyMap;
-  string pName;
-  for (int i = 0; i < 12; i++)
+  vector< vector<Sector>> map = mapVal;
+  
+  for (int i = 0 ; i < world.GetSize(); i++)
   {
-    Planet x;
-    x.techLevel = rand() % 5;
-    x.threatLevel = rand() % 10;
-    x.name = "[naem]";
-    GalaxyMap.push_back(x);
+    for (int j = 0; j < world.GetSize(); i++)
+    {
+      cout << (i+1) << ": " << map[i][j].getPlanet().name << " ";
+    }
+    
+    std::cout << "\n";
   }
-  Map map = { GalaxyMap };
-  return map;
+  
 }
 
-void DisplayMap(Map mapVal)
-{
-  for (int i = 0; i < mapVal.map.size(); i++)
-  {
-    cout << (i+1) << ": " << mapVal.map[i].name << "\n";
-  }
-}
 
 Coords Navigation()
 {
@@ -42,14 +35,8 @@ Coords Navigation()
   return coords;
 }
 
-Planet JumpDrive(Coords val, Map mapVal)
+Sector JumpDrive(Coords val, std::vector< std::vector<Sector>> mapVal)
 {
-  Planet x = mapVal.map[val.x];
-  cout << "Welcome to " << x.name << "\n";
-  return mapVal.map[val.x];
-  int eChance = rand() % 2;
-  if (eChance < 2) 
-  {
-    Encounter encounter(x.threatLevel);
-  }
+  Sector destination = mapVal[val.x][val.y];
+  return destination;
 }

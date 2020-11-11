@@ -45,7 +45,17 @@ void Encounter::Combat(Player user)
 
     //User makes attack
 
-    Fleet[enenmyTarget];
+    DisplayEquipment(user);
+    int equip;
+    std::cin >> equip;
+    switch (equip) {
+      case 0:
+        
+        break;
+        
+      default:
+        break;
+    }
 
     //Effective>?
 

@@ -2,10 +2,12 @@
 
 Player::Player() 
 {
+  GameWorld playerWorld;
   alive = true;
   mBankAccount = 15000;
   XP = 0;
   mPlayerLevel = 0;
+  std::vector< std::vector<Sector>> startpoint = playerWorld.GetMap();
 }
 
 std::string Player::getName() 
@@ -26,6 +28,11 @@ int Player::getBalance()
 void Player::setBalance(int newBalance) 
 {
   mBankAccount = newBalance;
+}
+
+void Player::Equip(int newVal)
+{
+  
 }
 
 void Player::LevelUp() 
