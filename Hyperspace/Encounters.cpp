@@ -50,10 +50,14 @@ void Encounter::Combat(Player user)
     std::cin >> equip;
     switch (equip) {
       case 0:
-        
+        user.Fire(equip);
         break;
         
+      case 1:
+        user.Fire(equip);
       default:
+        
+        std::cout << "<< Nothing was fired >>";
         break;
     }
 

@@ -7,13 +7,13 @@
 #include <time.h>
 
 
-void DisplayMap(std::vector< std::vector<Sector>> mapVal, GameWorld world)
+void DisplayMap(std::vector< std::vector<Sector>> mapVal)
 {
   vector< vector<Sector>> map = mapVal;
   
-  for (int i = 0 ; i < world.GetSize(); i++)
+  for (int i = 0 ; i < GameWorld::GetSize(); i++)
   {
-    for (int j = 0; j < world.GetSize(); i++)
+    for (int j = 0; j < GameWorld::GetSize(); i++)
     {
       cout << (i+1) << ": " << map[i][j].getPlanet().name << " ";
     }

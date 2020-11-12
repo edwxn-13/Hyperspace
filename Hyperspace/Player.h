@@ -28,6 +28,7 @@ public:
   void Equip(int);
   void LevelUp();
   void XPCheck();
+  void Fire(int);
 
 };
 

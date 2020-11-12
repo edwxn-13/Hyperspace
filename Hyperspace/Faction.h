@@ -1,14 +1,25 @@
 #pragma once
+#include <iostream>
 #include "NaturalResource.h"
+#include "GameWorld.h"
+
 class Faction {
 public:
-    Faction();
-
+  Faction();
 private:
-  int storage;
-  int credits;
+  std::string fName;
+  std::string fDesc;
+
+  int fCapital;
+  int fType;
   
+  std::vector<NaturalResource> fStorage;
+  static std::vector<Faction*> FactionList;
+  std::vector<Sector> fControlledSectors;
   
-  void factionRefresh();
+  float fMineRate;
+  
+public:
+  void FactionRefresh();
 };
 

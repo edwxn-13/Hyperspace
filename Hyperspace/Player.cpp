@@ -35,6 +35,11 @@ void Player::Equip(int newVal)
   
 }
 
+void Player::Fire(int eqVal)
+{
+  //Inventory[eqVal].
+}
+
 void Player::LevelUp() 
 {
   mPlayerLevel = mPlayerLevel + 1;

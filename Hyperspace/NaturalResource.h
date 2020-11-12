@@ -1,9 +1,11 @@
 #pragma once
 class NaturalResource
 {
-  int ResourceID;
-  int amount;
-  float regenRate;
+  static int ResourceID;
+  static int rAmount;
+  static float regenRate;
+  
+  
   
 };
 

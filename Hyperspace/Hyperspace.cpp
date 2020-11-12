@@ -4,7 +4,7 @@
 #include "GameWorld.h"
 
 
-Player InitGame(GameWorld world)
+Player InitGame()
 {
   Player userPlayer;
   std::string playerName;
@@ -16,32 +16,30 @@ Player InitGame(GameWorld world)
   
   int size;
   std::cin >> size;
-  world.Generate(size);
-  
+  GameWorld::Generate(size);
   return userPlayer;
 }
 
-Player Travel(Player user , GameWorld world)
+Player Travel(Player user)
 {
-  DisplayMap(world.GetMap() , world);
+  DisplayMap(GameWorld::GetMap());
   Coords pos = Navigation();
   user.locCord = pos.x;
-  user.CurrentPlanet = JumpDrive(pos,world.GetMap());
+  user.CurrentPlanet = JumpDrive(pos,GameWorld::GetMap());
 
   return user;
 }
 
-void GameLoop(Player user , GameWorld world)
+void GameLoop(Player user)
 {
   while (user.alive) 
   {
-    user = Travel(user,world);
+    user = Travel(user);
   }
 }
 
 int main() 
 {
-  GameWorld world;
-  GameLoop(InitGame(world), world);
+  GameLoop(InitGame());
 }
 

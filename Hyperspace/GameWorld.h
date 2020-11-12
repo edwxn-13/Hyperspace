@@ -25,10 +25,10 @@ private:
   static std::vector< std::vector<Sector>> tempUVerseGrid;
 public:
   GameWorld();
-  void Generate(int size);
-  void Update();
-  int GetSize();
-  std::vector< std::vector<Sector>> GetMap();
+  static void Generate(int size);
+  static void Update();
+  static int GetSize();
+  static std::vector< std::vector<Sector>> GetMap();
 };
 
 
