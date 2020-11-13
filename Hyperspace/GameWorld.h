@@ -9,12 +9,12 @@ class Sector
 public:
   Sector();
   Sector(int,int);
-  Sector sUp,sRt,sLft,sDwn;
   Planet getPlanet();
   int FactionID;
-  std::vector<Sector> nList;
   int checkNeigbours();
 private:
+  std::vector<Sector> nList;
+  
   int xVal, yVal;
   int neigbours;
   Planet localPlanet;
@@ -23,9 +23,8 @@ private:
 class GameWorld
 {
 private:
-  static int size;
-  static std::vector< std::vector<Sector>> UVerseGrid;
-  static std::vector< std::vector<Sector>> tempUVerseGrid;
+  static Sector mainNode;
+  static std::vector<Sector> UniverseList;
 public:
   GameWorld();
   static void Generate(int size);
