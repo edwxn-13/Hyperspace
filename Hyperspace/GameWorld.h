@@ -1,12 +1,15 @@
 #pragma once
 #include <vector>
 #include "Planet.h"
+
+// Make it a graph to secure these marks
+
 class Sector
 {
 public:
   Sector();
   Sector(int,int);
-
+  Sector sUp,sRt,sLft,sDwn;
   Planet getPlanet();
   int FactionID;
   std::vector<Sector> nList;
