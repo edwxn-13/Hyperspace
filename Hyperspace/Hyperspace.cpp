@@ -1,11 +1,12 @@
 #include <iostream>
-#include "Player.h"
 #include "Navigation.h"
-#include "GameWorld.h"
 
 
-Player InitGame()
+
+
+GamePackage InitGame()
 {
+  
   Player userPlayer;
   std::string playerName;
   
@@ -16,25 +17,29 @@ Player InitGame()
   
   int size;
   std::cin >> size;
-  GameWorld::Generate(size);
-  return userPlayer;
+
+  GameWorld gameWorld(size);
+  gameWorld.Initialize();
+
+  GamePackage package;
+  package.gameworld = gameWorld;
+  package.user = userPlayer;
+
+  return package;
 }
 
-Player Travel(Player user)
+Sector Travel(GamePackage gamePackage)
 {
-  DisplayMap(GameWorld::GetMap());
-  Coords pos = Navigation();
-  user.locCord = pos.x;
-  user.CurrentPlanet = JumpDrive(pos,GameWorld::GetMap());
-
-  return user;
+  Sector desSector;
+  desSector = JumpDrive(gamePackage);
+  return desSector;
 }
 
-void GameLoop(Player user)
+void GameLoop(GamePackage gamePackage)
 {
-  while (user.alive) 
+  while (gamePackage.user.alive) 
   {
-    user = Travel(user);
+    gamePackage.user.CurrentSector = Travel(gamePackage);
   }
 }
 

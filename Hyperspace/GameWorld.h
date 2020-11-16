@@ -9,6 +9,7 @@ class Sector
 public:
   Sector();
   Sector(int,int);
+  void setPlanet(Planet);
   Planet getPlanet();
   int FactionID;
   int checkNeigbours();
@@ -23,16 +24,17 @@ protected:
 class GameWorld
 {
 private:
-  static Sector mainNode;
-  static std::vector<Sector> UniverseList;
-  static int size;
-  static int genNum;
+  Sector mainNode;
+  std::vector<Sector> UniverseList;
+  int size;
+  int genNum;
+  Sector Generate(Sector);
 public:
-  GameWorld();
-  static Sector Generate(Sector);
-  static void Update();
-  static int GetSize();
+  GameWorld(int);
+  void Initialize();
+  void Update();
+  int GetSize();
   static std::vector< std::vector<Sector>> GetMap();
 };
 
-GameWorld::genNum = 0;
+int Sector::SectorCount = 0;

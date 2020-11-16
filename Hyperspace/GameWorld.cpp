@@ -8,7 +8,10 @@ Sector::Sector(int x, int y)
   yVal = y;
   SectorCount++;
 }
-
+void Sector::setPlanet(Planet newPlanet) 
+{
+  localPlanet = newPlanet;
+}
 Planet Sector::getPlanet()
 {
   return localPlanet;
@@ -20,44 +23,43 @@ int Sector::checkNeigbours()
   return neigbours;
 }
 
-GameWorld::GameWorld()
+GameWorld::GameWorld(int sizeVal)
 {
-  
-}
-
-std::vector< std::vector<Sector>> GameWorld::GetMap()
-{
-  return UVerseGrid;
+  size = sizeVal;
+  genNum = 0;
 }
 
 int GameWorld::GetSize()
 {
   return size;
 }
+
+void GameWorld::Initialize() 
+{
+  mainNode = Generate(mainNode);
+}
+
 Sector GameWorld::Generate(Sector rootNode)
 {
   genNum++;
   
   if (genNum == size) 
   {
-    Sector temp(rand() % 1000,rand() % 1000);
-    temp.setName(/*/randname/*/);
-    planet = rand() % 2;
-    switch planet
+    Sector tempSector(rand() % 1000,rand() % 1000);
+    int planet = rand() % 2;
+    switch (planet)
     {
       case 1:
-        Planet tempPlanet();
-        Sector.setPlanet(tempPlanet);
+        Planet tempPlanet;
+        tempSector.setPlanet(tempPlanet);
         break;
     }
-    return temp;
+    return tempSector;
   }
   int randChild = rand() % size;
   for (int i = 0; i < randChild; i++) {
     rootNode.nList.push_back(Generate(rootNode));
   }
-
-  return;
 }
 
 void GameWorld::Update()

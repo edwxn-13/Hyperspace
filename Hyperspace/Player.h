@@ -10,7 +10,7 @@ class Player
 public:
   int locCord;
   bool alive;
-  Sector CurrentPlanet;
+  Sector CurrentSector;
 
 private:
   std::string mName; // Cmon man

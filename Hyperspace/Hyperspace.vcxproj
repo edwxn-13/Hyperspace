@@ -168,6 +168,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Equipment.h" />
     <ClInclude Include="Faction.h" />
+    <ClInclude Include="GamePackage.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="NaturalResource.h" />
     <ClInclude Include="Navigation.h" />

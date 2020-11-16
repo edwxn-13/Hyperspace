@@ -2,12 +2,10 @@
 
 Player::Player() 
 {
-  GameWorld playerWorld;
   alive = true;
   mBankAccount = 15000;
   XP = 0;
   mPlayerLevel = 0;
-  std::vector< std::vector<Sector>> startpoint = playerWorld.GetMap();
 }
 
 std::string Player::getName() 
