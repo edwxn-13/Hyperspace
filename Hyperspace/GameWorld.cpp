@@ -36,6 +36,8 @@ int GameWorld::GetSize()
 }
 Sector GameWorld::Generate(Sector rootNode)
 {
+  genNum++;
+  
   if (genNum == size) 
   {
     return Sector(0,0);
