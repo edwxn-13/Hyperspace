@@ -40,7 +40,17 @@ Sector GameWorld::Generate(Sector rootNode)
   
   if (genNum == size) 
   {
-    return Sector(0,0);
+    Sector temp(rand() % 1000,rand() % 1000);
+    temp.setName(/*/randname/*/);
+    planet = rand() % 2;
+    switch planet
+    {
+      case 1:
+        Planeta tempPlanet();
+        Sector.setPlanet(tempPlanet);
+        break;
+    }
+    return temp;
   }
   int randChild = rand() % size;
   for (int i = 0; i < randChild; i++) {
