@@ -34,3 +34,5 @@ public:
   static int GetSize();
   static std::vector< std::vector<Sector>> GetMap();
 };
+
+GameWorld::genNum = 0;
