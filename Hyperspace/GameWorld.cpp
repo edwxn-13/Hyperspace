@@ -46,7 +46,7 @@ Sector GameWorld::Generate(Sector rootNode)
     switch planet
     {
       case 1:
-        Planeta tempPlanet();
+        Planet tempPlanet();
         Sector.setPlanet(tempPlanet);
         break;
     }
