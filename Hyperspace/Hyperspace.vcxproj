@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Documents\GitHub\Hyperspace\Hyperspace\GamePackage.cpp" />
     <ClCompile Include="Encounters.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Equipment.cpp" />

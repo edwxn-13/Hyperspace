@@ -10,10 +10,11 @@ public:
   Sector();
   Sector(int,int);
   void setPlanet(Planet);
+  void append(Sector);
   Planet getPlanet();
   int FactionID;
   int checkNeigbours();
-  static int SectorCount;
+  int SectorCount;
   std::vector<Sector> nList;
 protected:
   int xVal, yVal;
@@ -37,5 +38,3 @@ public:
   int GetSize();
   static std::vector< std::vector<Sector>> GetMap();
 };
-
-int Sector::SectorCount = 0;

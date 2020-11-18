@@ -1,7 +1,10 @@
 #include "GameWorld.h"
 #include <time.h>
-Sector::Sector(){};
-
+Sector::Sector()
+{
+  xVal = 0;
+  yVal = 0;
+};
 Sector::Sector(int x, int y)
 {
   xVal = x;
@@ -23,6 +26,11 @@ int Sector::checkNeigbours()
   return neigbours;
 }
 
+void Sector::append(Sector childSector) 
+{
+  nList.push_back(childSector);
+}
+
 GameWorld::GameWorld()
 {
   
@@ -41,32 +49,33 @@ int GameWorld::GetSize()
 
 void GameWorld::Initialize() 
 {
+  for (int i = 0; i < size; i++)
+  {
+    srand(time(0));
+    int xVal = rand() % 2400;
+    int yVal = rand() % 2400;
+    Sector tempSector(xVal,yVal);
+    int planetC = rand() % 2;
+    if (planetC == 1)
+    {
+      Planet tempPlanet;
+      tempPlanet.setName("temp planet");
+      tempSector.setPlanet(tempPlanet);
+    }
+    UniverseList.push_back(tempSector);
+  }
   mainNode = Generate(mainNode);
 }
 
 Sector GameWorld::Generate(Sector rootNode)
 {
-  genNum++;
-  
-  if (genNum == size) 
+  rootNode = UniverseList[(rand() % UniverseList.size()) - 1];
+  for (int i = 0; i < ((rand() % UniverseList.size()) - 1); i++) 
   {
-    Sector tempSector(rand() % 1000,rand() % 1000);
-    int planet = rand() % 2;
-    switch (planet)
-    {
-      case 1:
-        Planet tempPlanet;
-        tempSector.setPlanet(tempPlanet);
-        break;
-    }
-    return tempSector;
+    rootNode.append(UniverseList[(rand() % UniverseList.size()) - 1]);
   }
-  int randChild = rand() % size;
-  for (int i = 0; i < randChild; i++) {
-    rootNode.nList.push_back(Generate(rootNode));
-  }
-  
-  return Sector(0,0);
+
+  return rootNode;
 }
 
 void GameWorld::Update()
