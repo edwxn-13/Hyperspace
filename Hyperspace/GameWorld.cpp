@@ -23,6 +23,11 @@ int Sector::checkNeigbours()
   return neigbours;
 }
 
+GameWorld::GameWorld()
+{
+  
+}
+
 GameWorld::GameWorld(int sizeVal)
 {
   size = sizeVal;
@@ -60,6 +65,8 @@ Sector GameWorld::Generate(Sector rootNode)
   for (int i = 0; i < randChild; i++) {
     rootNode.nList.push_back(Generate(rootNode));
   }
+  
+  return Sector(0,0);
 }
 
 void GameWorld::Update()

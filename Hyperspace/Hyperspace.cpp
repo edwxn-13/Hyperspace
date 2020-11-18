@@ -1,8 +1,4 @@
-#include <iostream>
 #include "Navigation.h"
-
-
-
 
 GamePackage InitGame()
 {

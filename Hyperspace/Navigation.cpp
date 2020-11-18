@@ -1,11 +1,5 @@
-#include <iostream>
-#include <tuple>
-#include <fstream>
-#include <string>
-#include "Navigation.h"
-#include "GameWorld.h"
-#include <time.h>
 
+#include "Navigation.h"
 
 void DisplayMap(GamePackage gamePackage)
 {

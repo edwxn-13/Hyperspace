@@ -30,6 +30,7 @@ private:
   int genNum;
   Sector Generate(Sector);
 public:
+  GameWorld();
   GameWorld(int);
   void Initialize();
   void Update();

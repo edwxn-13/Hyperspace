@@ -1,7 +1,10 @@
 #pragma once
 
 #include <iostream>
-#include <vector>
+#include <tuple>
+#include <fstream>
+#include <string>
+
 #include "Planet.h"
 #include "Encounters.h"
 #include "GameWorld.h"

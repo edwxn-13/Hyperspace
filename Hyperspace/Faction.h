@@ -14,7 +14,7 @@ private:
   int fType;
   
   std::vector<NaturalResource> fStorage;
-  static std::vector<Faction*> FactionList;
+  std::vector<Faction*> FactionList;
   std::vector<Sector> fControlledSectors;
   
   float fMineRate;
