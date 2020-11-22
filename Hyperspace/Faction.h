@@ -2,7 +2,9 @@
 #include <iostream>
 #include "NaturalResource.h"
 #include "GameWorld.h"
-
+/*
+ Defines Faction class
+ */
 class Faction {
 public:
   Faction();

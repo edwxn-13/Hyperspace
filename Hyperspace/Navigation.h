@@ -10,7 +10,7 @@
 #include "GameWorld.h"
 #include "GamePackage.h"
 
-void DisplayMap(GamePackage gamePackage);
-Sector JumpDrive(GamePackage gamePackage);
+void DisplayMap(GamePackage gamePackage); //Displays GameWorld class visually
+Sector JumpDrive(GamePackage gamePackage);// Transports the player to a new sector
 
 

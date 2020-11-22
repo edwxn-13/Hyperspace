@@ -6,11 +6,12 @@ GamePackage InitGame()
   Player userPlayer;
   std::string playerName;
   
-  std::cout << "Welcome to Hypderspace \nEnter your name \n";
+  std::cout << "Welcome to Hyperspace \nEnter your name : ";
   std::cin >> playerName;
   userPlayer.setName(playerName);
   std::cout << "Welcome back commander " << playerName << "\n";
   
+  std::cout << "\nSelect size: ";
   int size;
   std::cin >> size;
 
@@ -33,6 +34,17 @@ Sector Travel(GamePackage gamePackage)
 
 void GameLoop(GamePackage gamePackage)
 {
+  /*
+   
+   First the user is on the menu
+   They can select what they want to do
+   Go to navigation
+   Select a new sector
+   Route plotted
+   Jump drive
+   Encounter is generated or player can visit local station
+  
+   */
   while (gamePackage.user.alive) 
   {
     gamePackage.user.CurrentSector = Travel(gamePackage);

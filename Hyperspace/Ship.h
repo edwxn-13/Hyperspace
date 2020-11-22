@@ -8,15 +8,15 @@ public:
   int cost;
   std::string mShipName;
 private:
-  int mShields;
-  int mArmour;
-  int mHardpointNum;
-  std::vector<Equipment> mHardpoints;
+  int mShields; // Shield value.
+  int mArmour; //Armour value.
+  int mHardpointNum; // Number of hardpoints, differs from ship to ship.
+  std::vector<Equipment> mHardpoints; //Locations where weapons can be attached.
 
 public:
   //Initializes a new ship object.
   Ship();
-  void setShields(int);
-  void setArmour(int);
+  void setShields(int); //Sets shield value
+  void setArmour(int); // Sets armour value.
 };
 

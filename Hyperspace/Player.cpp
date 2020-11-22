@@ -42,7 +42,10 @@ void Player::LevelUp()
 {
   mPlayerLevel = mPlayerLevel + 1;
 }
-
+/*
+ Checks the players XP amount,
+ if it is a sufficient level the player levels up
+ */
 void Player::XPCheck() 
 {
   if (XP < 200) 
