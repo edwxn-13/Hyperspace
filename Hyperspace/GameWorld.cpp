@@ -66,27 +66,27 @@ int GameWorld::GetSize()
  */
 void GameWorld::Initialize() 
 {
+  std::vector<int> xVals, yVals;
+
   for (int i = 0; i < size; i++)
   {
     int xVal;
     int yVal;
 
-    srand(time(0));
-
     bool uniqueC = false;
 
-    std::vector<int> xVals, yVals;
-
-    xVal = rand() % 2400;
-    yVal = rand() % 2400;
+    
 
     while (uniqueC == false) 
     {
+      srand(time(0));
+      xVal = rand() % 2400;
+      yVal = rand() % 2400;
 
       if (xVals.empty() && yVals.empty()) 
       {
+        std::cout << "first time \n";
         uniqueC = true;
-        break;
       }
       else 
       {
@@ -116,6 +116,7 @@ void GameWorld::Initialize()
     }
     xVals.push_back(xVal);
     yVals.push_back(yVal);
+
     std::cout << xVal << " : " << yVal << "\n";
     Sector tempSector(xVal,yVal);
 
