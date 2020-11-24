@@ -68,11 +68,59 @@ void GameWorld::Initialize()
 {
   for (int i = 0; i < size; i++)
   {
+    int xVal;
+    int yVal;
+
     srand(time(0));
-    int xVal = rand() % 2400;
-    int yVal = rand() % 2400;
+
+    bool uniqueC = false;
+
+    std::vector<int> xVals, yVals;
+
+    xVal = rand() % 2400;
+    yVal = rand() % 2400;
+
+    while (uniqueC == false) 
+    {
+
+      if (xVals.empty() && yVals.empty()) 
+      {
+        uniqueC = true;
+        break;
+      }
+      else 
+      {
+        int xU = 0;
+        int yU = 0;
+        for (int i = 0; i < xVals.size(); i++) 
+        {
+          if(xVal == xVals[i])
+          xU++;
+        }
+        for (int i = 0; i < yVals.size(); i++)
+        {
+          if (yVal == yVals[i])
+          yU++;
+        }
+
+        if (xVal && yVal) 
+        {
+          uniqueC = false;
+        }
+
+        else 
+        {
+          uniqueC = true;
+        }
+      }
+    }
+    xVals.push_back(xVal);
+    yVals.push_back(yVal);
+    std::cout << xVal << " : " << yVal << "\n";
     Sector tempSector(xVal,yVal);
+
     int planetC = rand() % 2;
+
     if (planetC == 1)
     {
       Planet tempPlanet;
