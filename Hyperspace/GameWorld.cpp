@@ -17,6 +17,7 @@ Sector::Sector(int x, int y)
 {
   xVal = x;
   yVal = y;
+  searchHash = xVal * yVal;
   SectorCount++;
 }
 
@@ -34,11 +35,15 @@ Planet Sector::getPlanet()
 //Returns the amount of sectors local to itself.
 int Sector::checkNeigbours()
 {
-  
+  //select all sectors in a range
+  //if 2 or more belong to the parent faction then convert them
+  //else belongs to the closest faction
+  //else factionless
   return neigbours;
 }
 
-//Connects secotrs together by adding it the array. @Argument Sector
+//Connects secotrs together by adding it the array. w
+//@args Sector childSector
 void Sector::append(Sector childSector) 
 {
   nList.push_back(childSector);
@@ -62,65 +67,25 @@ int GameWorld::GetSize()
 
 /*
  The GameWorld is initiallized
+ Sectors are generated based on specified size from player.
+ Random cooordinates are assigned
+ Triggers Generate function to create graph based on points
  The in game solar system is modelled as a weighted graph.
  */
 void GameWorld::Initialize() 
 {
-  std::vector<int> xVals, yVals;
+  std::cout <<"<Generating Universe> \n";
 
-  for (int i = 0; i < size; i++)
+  int xVal;
+  int yVal;
+  
+  for (int i = 0; i < size; i++) // Creaes the nodes
   {
-    int xVal;
-    int yVal;
-
-    bool uniqueC = false;
-
+    xVal = rand() % 2400;
+    yVal = rand() % 2400;
     
-
-    while (uniqueC == false) 
-    {
-      srand(time(0));
-      xVal = rand() % 2400;
-      yVal = rand() % 2400;
-
-      if (xVals.empty() && yVals.empty()) 
-      {
-        std::cout << "first time \n";
-        uniqueC = true;
-      }
-      else 
-      {
-        int xU = 0;
-        int yU = 0;
-        for (int i = 0; i < xVals.size(); i++) 
-        {
-          if(xVal == xVals[i])
-          xU++;
-        }
-        for (int i = 0; i < yVals.size(); i++)
-        {
-          if (yVal == yVals[i])
-          yU++;
-        }
-
-        if (xVal && yVal) 
-        {
-          uniqueC = false;
-        }
-
-        else 
-        {
-          uniqueC = true;
-        }
-      }
-    }
-    xVals.push_back(xVal);
-    yVals.push_back(yVal);
-
-    std::cout << xVal << " : " << yVal << "\n";
     Sector tempSector(xVal,yVal);
-
-    int planetC = rand() % 2;
+    int planetC = rand() % 2; // does the sector contain a planet?
 
     if (planetC == 1)
     {
@@ -131,6 +96,35 @@ void GameWorld::Initialize()
     UniverseList.push_back(tempSector);
   }
   mainNode = Generate(mainNode);
+  UniverseList = sortList(UniverseList);
+}
+
+//Combines sections together
+void Merge()
+{
+  
+}
+
+// Splits list into smalller sections
+std::vector<Sector> GameWorld::sortList(std::vector<Sector> rootList)
+{
+  return rootList;
+}
+
+/*/
+  Checks if a sector is already connected to another one so there are no
+  duplicate sectors in the child sector array.
+*/
+bool GameWorld::CheckDuplicates(Sector rootNode, Sector childNode)
+{
+  for(int i = 0; i < rootNode.nList.size(); i++)
+  {
+    if(rootNode.nList[i].xVal == childNode.xVal && rootNode.nList[i].yVal == childNode.yVal)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
 /*
@@ -149,23 +143,33 @@ Sector GameWorld::Generate(Sector rootNode)
   {
     return rootNode;
   }
-  rootNode = UniverseList[(rand() % UniverseList.size()) - 1];
-  for (int i = 0; i < ((rand() % UniverseList.size()) - 1); i++) 
-  {
-    int altNode = (rand() % UniverseList.size()) - 1;
-    rootNode.append(UniverseList[altNode]);
-    std::cout << rootNode.getPlanet().getName() << "\n";
-    Generate(UniverseList[altNode]);
-  }
   
+  for(int i = 0; i < (rand() % (size + 1)); i++)
+  {
+    Sector childSector = Generate(UniverseList[rand() % (size - 1)]);
+    
+    if(!CheckDuplicates(rootNode, childSector))
+    {
+      rootNode.nList.push_back(childSector);
+    }
+  }
   return rootNode;
 }
-
+/*/
+ Factions update their terratories by calculating the amount of faction
+ owend sectors in a specified area
+ */
 void GameWorld::Update()
 {
+  
+  for(int i = 1; i < size-1; i++)
+  {
+    UniverseList[i].checkNeigbours();
+  }
   // First check the faction of the node
   // Check the amount of neigbouts that belong to the same faction
-  // Then if the number of factions meet the criteria the faction stays in control
+  // Then if the number of factions meet the criteria
+  // the faction stays in control
   // If not then the node is controlled by the nearest faction.
 }
 

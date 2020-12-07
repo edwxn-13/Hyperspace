@@ -15,8 +15,9 @@ public:
   int FactionID;
   int checkNeigbours();
   int SectorCount;
+  int searchHash;
   std::vector<Sector> nList;
-protected:
+public:
   int xVal, yVal;
   int neigbours;
   Planet localPlanet;
@@ -29,6 +30,8 @@ private:
   std::vector<Sector> UniverseList;
   int size;
   int genNum;
+  bool CheckDuplicates(Sector,Sector);
+  std::vector<Sector> sortList(std::vector<Sector>);
   Sector Generate(Sector);
 public:
   GameWorld();

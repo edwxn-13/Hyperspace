@@ -12,5 +12,5 @@
 
 void DisplayMap(GamePackage gamePackage); //Displays GameWorld class visually
 Sector JumpDrive(GamePackage gamePackage);// Transports the player to a new sector
-
+Sector sectorSearch(int hash);
 
