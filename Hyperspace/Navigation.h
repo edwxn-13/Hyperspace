@@ -4,13 +4,13 @@
 #include <tuple>
 #include <fstream>
 #include <string>
-
 #include "Planet.h"
-#include "Encounters.h"
 #include "GameWorld.h"
 #include "GamePackage.h"
 
 void DisplayMap(GamePackage gamePackage); //Displays GameWorld class visually
 Sector JumpDrive(GamePackage gamePackage);// Transports the player to a new sector
-Sector sectorSearch(int hash);
+Sector sectorSearch(int hash, GamePackage gamePackage);
+std::vector<Sector> FindRoute(Sector,std::vector<Sector>);
+int CalculateDistance(Sector,Sector);
 

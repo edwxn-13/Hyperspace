@@ -152,7 +152,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Documents\GitHub\Hyperspace\Hyperspace\GamePackage.cpp" />
-    <ClCompile Include="Encounters.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Equipment.cpp" />
     <ClCompile Include="Faction.cpp" />
@@ -165,7 +164,6 @@
     <ClCompile Include="Ship.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Encounters.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Equipment.h" />
     <ClInclude Include="Faction.h" />

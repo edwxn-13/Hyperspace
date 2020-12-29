@@ -11,15 +11,18 @@ public:
   Sector(int,int);
   void setPlanet(Planet);
   void append(Sector);
+  void setDistance(int);
   Planet getPlanet();
-  int FactionID;
+  bool contains(Sector);
   int checkNeigbours();
-  int SectorCount;
-  int searchHash;
-  std::vector<Sector> nList;
 public:
+  std::vector<Sector> nList;
+  int FactionID;
   int xVal, yVal;
   int neigbours;
+  int distanceFromPlayer;
+  int SectorCount;
+  int searchHash;
   Planet localPlanet;
 };
 
@@ -39,5 +42,5 @@ public:
   void Initialize();
   void Update();
   int GetSize();
-  static std::vector< std::vector<Sector>> GetMap();
+  std::vector<Sector> GetMap();
 };

@@ -39,9 +39,6 @@
     <ClCompile Include="Planet.cpp">
       <Filter>Source Files\Planets</Filter>
     </ClCompile>
-    <ClCompile Include="Encounters.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -73,9 +70,6 @@
     </ClInclude>
     <ClInclude Include="Planet.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Encounters.h">
-      <Filter>Header Files\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>

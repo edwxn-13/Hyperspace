@@ -21,6 +21,11 @@ Sector::Sector(int x, int y)
   SectorCount++;
 }
 
+void Sector::setDistance(int val) 
+{
+  distanceFromPlayer = val;
+}
+
 //Sets planet value
 void Sector::setPlanet(Planet newPlanet) 
 {
@@ -49,6 +54,19 @@ void Sector::append(Sector childSector)
   nList.push_back(childSector);
 }
 
+bool Sector::contains(Sector childNode) 
+{
+  for (int i = 0; i < nList.size(); i++)
+  {
+    if (nList[i].searchHash == childNode.searchHash) 
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 GameWorld::GameWorld()
 {
   
@@ -58,6 +76,11 @@ GameWorld::GameWorld(int sizeVal)
 {
   size = sizeVal;
   genNum = 0;
+}
+
+std::vector<Sector> GameWorld::GetMap()
+{
+  return UniverseList;
 }
 
 int GameWorld::GetSize()
@@ -144,7 +167,7 @@ Sector GameWorld::Generate(Sector rootNode)
     return rootNode;
   }
   
-  for(int i = 0; i < (rand() % (size + 1)); i++)
+  for(int i = 0; i < (rand() % (size - 1)); i++)
   {
     Sector childSector = Generate(UniverseList[rand() % (size - 1)]);
     
