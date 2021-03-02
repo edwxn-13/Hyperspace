@@ -10,6 +10,7 @@ public:
   Sector();
   Sector(int,int);
   void setPlanet(Planet);
+  void liberate();
   void append(Sector);
   void setDistance(int);
   Planet getPlanet();
@@ -17,30 +18,32 @@ public:
   int checkNeigbours();
 public:
   std::vector<Sector> nList;
-  int FactionID;
+  int nFactionID;
   int xVal, yVal;
-  int neigbours;
-  int distanceFromPlayer;
-  int SectorCount;
-  int searchHash;
-  Planet localPlanet;
+  int nNeigbours;
+  int nDistanceFromPlayer;
+  int nSectorCount;
+  int nSearchHash;
+  Planet nLocalPlanet;
 };
 
 class GameWorld
 {
 private:
-  Sector mainNode;
-  std::vector<Sector> UniverseList;
-  int size;
-  int genNum;
+  Sector nMainNode;
+  int nSize;
+  int nGenNum;
   bool CheckDuplicates(Sector,Sector);
-  std::vector<Sector> sortList(std::vector<Sector>);
-  Sector Generate(Sector);
+  std::vector<Sector> SortList(std::vector<Sector>);
+  Sector Generate(int);
 public:
+  std::vector<Sector> UniverseList;
+
   GameWorld();
   GameWorld(int);
-  void Initialize();
-  void Update();
-  int GetSize();
-  std::vector<Sector> GetMap();
+  void initialize();
+  std::vector<Sector> getWorld();
+  void update();
+  int getSize();
+  std::vector<Sector> getMap();
 };

@@ -7,10 +7,10 @@ Planet::Planet()
 
 std::string Planet::getName() 
 {
-  return name;
+  return nName;
 }
 
 void Planet::setName(std::string newName) 
 {
-  name = newName;
+  nName = newName;
 }

@@ -17,24 +17,24 @@ Sector::Sector(int x, int y)
 {
   xVal = x;
   yVal = y;
-  searchHash = xVal * yVal;
-  SectorCount++;
+  nSearchHash = xVal * yVal;
+  nSectorCount++;
 }
 
 void Sector::setDistance(int val) 
 {
-  distanceFromPlayer = val;
+  nDistanceFromPlayer = val;
 }
 
 //Sets planet value
 void Sector::setPlanet(Planet newPlanet) 
 {
-  localPlanet = newPlanet;
+  nLocalPlanet = newPlanet;
 }
 //Returns planet value
 Planet Sector::getPlanet()
 {
-  return localPlanet;
+  return nLocalPlanet;
 }
 
 //Returns the amount of sectors local to itself.
@@ -44,7 +44,7 @@ int Sector::checkNeigbours()
   //if 2 or more belong to the parent faction then convert them
   //else belongs to the closest faction
   //else factionless
-  return neigbours;
+  return nNeigbours;
 }
 
 //Connects secotrs together by adding it the array. w
@@ -58,13 +58,18 @@ bool Sector::contains(Sector childNode)
 {
   for (int i = 0; i < nList.size(); i++)
   {
-    if (nList[i].searchHash == childNode.searchHash) 
+    if (nList[i].nSearchHash == childNode.nSearchHash) 
     {
       return true;
     }
   }
 
   return false;
+}
+
+void Sector::liberate() 
+{
+  nFactionID = 0;
 }
 
 GameWorld::GameWorld()
@@ -74,20 +79,24 @@ GameWorld::GameWorld()
 
 GameWorld::GameWorld(int sizeVal)
 {
-  size = sizeVal;
-  genNum = 0;
+  nSize = sizeVal;
+  nGenNum = 0;
 }
 
-std::vector<Sector> GameWorld::GetMap()
+std::vector<Sector> GameWorld::getMap()
 {
   return UniverseList;
 }
 
-int GameWorld::GetSize()
+int GameWorld::getSize()
 {
-  return size;
+  return nSize;
 }
 
+std::vector<Sector> GameWorld::getWorld() 
+{
+  return UniverseList;
+}
 /*
  The GameWorld is initiallized
  Sectors are generated based on specified size from player.
@@ -95,14 +104,14 @@ int GameWorld::GetSize()
  Triggers Generate function to create graph based on points
  The in game solar system is modelled as a weighted graph.
  */
-void GameWorld::Initialize() 
+void GameWorld::initialize() 
 {
   std::cout <<"<Generating Universe> \n";
 
   int xVal;
   int yVal;
   
-  for (int i = 0; i < size; i++) // Creaes the nodes
+  for (int i = 0; i < nSize; i++) // Creaes the nodes
   {
     xVal = rand() % 2400;
     yVal = rand() % 2400;
@@ -118,8 +127,9 @@ void GameWorld::Initialize()
     }
     UniverseList.push_back(tempSector);
   }
-  mainNode = Generate(mainNode);
-  UniverseList = sortList(UniverseList);
+  
+  Generate(0);
+  //UniverseList = sortList(UniverseList);
 }
 
 //Combines sections together
@@ -129,7 +139,7 @@ void Merge()
 }
 
 // Splits list into smalller sections
-std::vector<Sector> GameWorld::sortList(std::vector<Sector> rootList)
+std::vector<Sector> GameWorld::SortList(std::vector<Sector> rootList)
 {
   return rootList;
 }
@@ -158,18 +168,46 @@ bool GameWorld::CheckDuplicates(Sector rootNode, Sector childNode)
  are deleted using a bredth search algorithm.
  */
 
-Sector GameWorld::Generate(Sector rootNode)
+Sector GameWorld::Generate(int index)
 {
-  genNum++;
+  std::cout << nSize << " : size \n";
+  nGenNum++;
+  if (nGenNum > nSize) 
+  {
+    return UniverseList[index];
+  }
+
+  for (int i = 0; i < rand() % nSize; i++) 
+  {
+    int randSectorIndex;
+    do 
+    {
+      randSectorIndex = (rand() % UniverseList.size() - 1);
+    } while (randSectorIndex < 0);
+
+    std::cout << randSectorIndex << " : size \n";
+    if (CheckDuplicates(UniverseList[index],UniverseList[randSectorIndex]) == false)
+    {
+      UniverseList[index].append(UniverseList[randSectorIndex]);
+    }
+  }
+
+}
+
+/*Sector GameWorld::Generate(Sector rootNode)
+{
+  srand(time(0));
+  nGenNum++;
   
-  if(genNum > size - 1)
+  if(nGenNum > nSize - 1)
   {
     return rootNode;
   }
   
-  for(int i = 0; i < (rand() % (size - 1)); i++)
+  for(int i = 0; i < (rand() % (nSize)); i++)
   {
-    Sector childSector = Generate(UniverseList[rand() % (size - 1)]);
+    int ranint = rand() % nSize;
+    Sector childSector = Generate(UniverseList[ranint]);
     
     if(!CheckDuplicates(rootNode, childSector))
     {
@@ -177,15 +215,16 @@ Sector GameWorld::Generate(Sector rootNode)
     }
   }
   return rootNode;
-}
+}*/
+
 /*/
  Factions update their terratories by calculating the amount of faction
  owend sectors in a specified area
  */
-void GameWorld::Update()
+void GameWorld::update()
 {
   
-  for(int i = 1; i < size-1; i++)
+  for(int i = 1; i < nSize-1; i++)
   {
     UniverseList[i].checkNeigbours();
   }

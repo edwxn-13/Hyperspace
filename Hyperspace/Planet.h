@@ -4,10 +4,10 @@
 class Planet 
 {
 private:
-  std::string name;
-  std::string details;
-  int techLevel;
-  int threatLevel;
+  std::string nName;
+  std::string nDetails;
+  int nTechLevel;
+  int nThreatLevel;
 public:
   void setName(std::string);
   std::string getName();

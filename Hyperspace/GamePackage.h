@@ -5,6 +5,6 @@
 struct GamePackage
 {
   GamePackage();
-  GameWorld gameworld;
-  Player user;
+  GameWorld nGameWorld;
+  Player nUser;
 };

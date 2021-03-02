@@ -8,7 +8,7 @@ class Enemy
 {
 private:
   Ship mShip;
-  Faction mFaction;
+  Faction nFaction;
   std::vector<Equipment> mInventory;
 public:
   Enemy(int);

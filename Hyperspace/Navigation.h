@@ -7,6 +7,7 @@
 #include "Planet.h"
 #include "GameWorld.h"
 #include "GamePackage.h"
+#include "Faction.h"
 
 void DisplayMap(GamePackage gamePackage); //Displays GameWorld class visually
 Sector JumpDrive(GamePackage gamePackage);// Transports the player to a new sector

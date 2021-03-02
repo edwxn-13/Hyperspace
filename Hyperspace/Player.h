@@ -15,11 +15,11 @@ public:
   Sector CurrentSector; // Players current location
 
 private:
-  std::string mName; // Cmon man
-  int mBankAccount; // Players Credit Balance.
-  int mPlayerLevel, XP;
-  Ship mPlayerShip; // The player's ship
-  std::vector<Equipment> Inventory; // Contains all of the users equipment.
+  std::string mName; // The name the user wishes to be identified as
+  int nBankAccount; // Players Credit Balance.
+  int nPlayerLevel, XP;
+  Ship nPlayerShip; // The player's ship
+  std::vector<Equipment> nInventory; // Contains all of the users equipment.
 public:
   Player(); // Default player constructor, sets initial values.
   std::string getName(); // Returns players name.

@@ -3,9 +3,9 @@
 Player::Player() 
 {
   alive = true;
-  mBankAccount = 15000;
+  nBankAccount = 15000;
   XP = 0;
-  mPlayerLevel = 0;
+  nPlayerLevel = 0;
 }
 
 std::string Player::getName() 
@@ -20,12 +20,12 @@ void Player::setName(std::string newName)
 
 int Player::getBalance() 
 {
-  return mBankAccount;
+  return nBankAccount;
 }
 
 void Player::setBalance(int newBalance) 
 {
-  mBankAccount = newBalance;
+  nBankAccount = newBalance;
 }
 
 void Player::Equip(int newVal)
@@ -40,7 +40,7 @@ void Player::Fire(int eqVal)
 
 void Player::LevelUp() 
 {
-  mPlayerLevel = mPlayerLevel + 1;
+  nPlayerLevel = nPlayerLevel + 1;
 }
 /*
  Checks the players XP amount,

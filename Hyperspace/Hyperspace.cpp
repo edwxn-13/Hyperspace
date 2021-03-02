@@ -16,13 +16,27 @@ GamePackage InitGame()
   std::cin >> size;
 
   GameWorld gameWorld(size);
-  gameWorld.Initialize();
+  gameWorld.initialize();
 
   GamePackage package;
-  package.gameworld = gameWorld;
-  package.user = userPlayer;
+  package.nGameWorld = gameWorld;
+  package.nUser = userPlayer;
 
   return package;
+}
+
+Faction::FContainer FactionInit(NaturalResource::RContainer rContainer) 
+{
+  Faction::FContainer fContainer;
+  Faction f1(rContainer, 0);
+  Faction f2(rContainer, 1);
+  Faction f3(rContainer, 2);
+
+  fContainer.nFactionList.push_back(f1);
+  fContainer.nFactionList.push_back(f2);
+  fContainer.nFactionList.push_back(f3);
+
+  return fContainer;
 }
 
 Sector Travel(GamePackage gamePackage)
@@ -45,9 +59,9 @@ void GameLoop(GamePackage gamePackage)
    Encounter is generated or player can visit local station
   
    */
-  while (gamePackage.user.alive) 
+  while (gamePackage.nUser.alive) 
   {
-    gamePackage.user.CurrentSector = Travel(gamePackage);
+    gamePackage.nUser.CurrentSector = Travel(gamePackage);
   }
 }
 

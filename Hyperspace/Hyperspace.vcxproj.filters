@@ -19,9 +19,6 @@
     <Filter Include="Source Files\Scripts">
       <UniqueIdentifier>{dc92aef8-e414-472f-99be-f0c77d36487f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Planets">
-      <UniqueIdentifier>{ed24cd59-dd5b-4583-ab83-49bc5b623fd1}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Hyperspace.cpp">
@@ -35,9 +32,6 @@
     </ClCompile>
     <ClCompile Include="Navigation.cpp">
       <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="Planet.cpp">
-      <Filter>Source Files\Planets</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
@@ -54,7 +48,13 @@
     <ClCompile Include="GameWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Documents\GitHub\Hyperspace\Hyperspace\GamePackage.cpp">
+    <ClCompile Include="Planet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePackage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomEncounter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -87,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GamePackage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomEncounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

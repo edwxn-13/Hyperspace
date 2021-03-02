@@ -10,7 +10,15 @@
 
 void DisplayMap(GamePackage gamePackage)
 {
-
+  for (int i = 0; i < gamePackage.nGameWorld.UniverseList.size() - 1;i++) 
+  {
+    std::cout << "Sector: " << gamePackage.nGameWorld.UniverseList[i].xVal << " : " << gamePackage.nGameWorld.UniverseList[i].yVal << "\n";
+    for (int j = 0; j < gamePackage.nGameWorld.UniverseList[i].nList.size() - 1; i++) 
+    {
+      std::cout << "Child: " << gamePackage.nGameWorld.UniverseList[i].xVal << " : " << gamePackage.nGameWorld.UniverseList[i].yVal << "  ";
+    }
+    std::cout << "\n";
+  }
 }
 
 
@@ -26,11 +34,11 @@ Sector sectorSearch(GamePackage gamePackage)
 
     int hash = x * y;
 
-    std::vector<Sector> secList = gamePackage.gameworld.GetMap();
+    std::vector<Sector> secList = gamePackage.nGameWorld.getMap();
 
-    for (int i = 0; i < gamePackage.gameworld.GetMap().size(); i++)
+    for (int i = 0; i < gamePackage.nGameWorld.getMap().size(); i++)
     {
-      if (hash == secList[i].searchHash)
+      if (hash == secList[i].nSearchHash)
       {
         return secList[i];
       }
@@ -41,14 +49,15 @@ Sector sectorSearch(GamePackage gamePackage)
 
 Sector JumpDrive(GamePackage gamePackage)
 {
+  DisplayMap(gamePackage);
   Sector destination = sectorSearch(gamePackage);
   std::vector<Sector> route;
-  if (destination.contains(gamePackage.user.CurrentSector)) 
+  if (destination.contains(gamePackage.nUser.CurrentSector)) 
   {
-    std::cout << "Jumping to " << destination.searchHash << "\n";
+    std::cout << "Jumping to " << destination.nSearchHash << "\n";
     return destination;
   }
-  route = FindRoute(gamePackage.user.CurrentSector , route);
+  route = FindRoute(gamePackage.nUser.CurrentSector , route);
   return destination;
 }
 
@@ -62,18 +71,18 @@ std::vector<Sector> FindRoute(Sector currentNode, std::vector<Sector> route)
     currentNode.nList[i].setDistance(distance);
   }
 
-  int smallest_distance = currentNode.nList[0].distanceFromPlayer;
-  int largest_distance = currentNode.nList[0].distanceFromPlayer;
+  int smallest_distance = currentNode.nList[0].nDistanceFromPlayer;
+  int largest_distance = currentNode.nList[0].nDistanceFromPlayer;
 
   for (int i = 0; i < currentNode.nList.size(); i++)
   {
-    if (currentNode.nList[i].distanceFromPlayer < smallest_distance)
+    if (currentNode.nList[i].nDistanceFromPlayer < smallest_distance)
     {
-      smallest_distance = currentNode.nList[i].distanceFromPlayer;
+      smallest_distance = currentNode.nList[i].nDistanceFromPlayer;
     }
-    if (currentNode.nList[i].distanceFromPlayer > largest_distance)
+    if (currentNode.nList[i].nDistanceFromPlayer > largest_distance)
     {
-      largest_distance = currentNode.nList[i].distanceFromPlayer;
+      largest_distance = currentNode.nList[i].nDistanceFromPlayer;
     }
   }
 
