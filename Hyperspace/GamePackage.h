@@ -4,7 +4,7 @@
 
 struct GamePackage
 {
-  GamePackage();
+  GamePackage(GameWorld gVal, Player pVal);
   GameWorld nGameWorld;
   Player nUser;
 };

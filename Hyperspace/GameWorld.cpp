@@ -168,13 +168,13 @@ bool GameWorld::CheckDuplicates(Sector rootNode, Sector childNode)
  are deleted using a bredth search algorithm.
  */
 
-Sector GameWorld::Generate(int index)
+void GameWorld::Generate(int index)
 {
   std::cout << nSize << " : size \n";
   nGenNum++;
   if (nGenNum > nSize) 
   {
-    return UniverseList[index];
+    return;
   }
 
   for (int i = 0; i < rand() % nSize; i++) 
@@ -189,6 +189,7 @@ Sector GameWorld::Generate(int index)
     if (CheckDuplicates(UniverseList[index],UniverseList[randSectorIndex]) == false)
     {
       UniverseList[index].append(UniverseList[randSectorIndex]);
+      Generate(randSectorIndex);
     }
   }
 

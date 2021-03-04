@@ -18,9 +18,7 @@ GamePackage InitGame()
   GameWorld gameWorld(size);
   gameWorld.initialize();
 
-  GamePackage package;
-  package.nGameWorld = gameWorld;
-  package.nUser = userPlayer;
+  GamePackage package(gameWorld , userPlayer);
 
   return package;
 }
@@ -67,6 +65,7 @@ void GameLoop(GamePackage gamePackage)
 
 int main() 
 {
-  GameLoop(InitGame());
+  GamePackage package = InitGame();
+  GameLoop(package);
 }
 

@@ -16,7 +16,6 @@ public:
   Planet getPlanet();
   bool contains(Sector);
   int checkNeigbours();
-public:
   std::vector<Sector> nList;
   int nFactionID;
   int xVal, yVal;
@@ -29,13 +28,13 @@ public:
 
 class GameWorld
 {
-private:
+public:
   Sector nMainNode;
   int nSize;
   int nGenNum;
   bool CheckDuplicates(Sector,Sector);
   std::vector<Sector> SortList(std::vector<Sector>);
-  Sector Generate(int);
+  void Generate(int);
 public:
   std::vector<Sector> UniverseList;
 
