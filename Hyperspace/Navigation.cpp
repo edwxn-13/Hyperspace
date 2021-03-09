@@ -7,6 +7,62 @@
  Also triggers encounter logic.
  */
 
+void DisplayMenu(GamePackage gamePackage) 
+{
+  int inputValue;
+  if (gamePackage.nUser.CurrentSector.hasPlanet()) 
+  {
+    std::cout << "\n1.View Navigation: \n2.View Inventroy: \n3.View Objectives: \n4.View Planet: \n5.View Station: ";
+    do
+    {
+      std::cout << "Select Option\n";
+
+      std::cin >> inputValue;
+    } while (inputValue > 5 && inputValue < 1);
+  }
+
+  else 
+  {
+    std::cout << "\n1.View Navigation: \n2.View Inventroy: \n3.View Objectives: \n4.View Station: ";
+    do
+    {
+      std::cout << "Select Option\n";
+
+      std::cin >> inputValue;
+    } while (inputValue > 4 && inputValue < 1);
+  }
+
+  switch (inputValue)
+  {
+  default:
+    DisplayMenu(gamePackage);
+    break;
+  case 1:
+    JumpDrive(gamePackage);
+    break;
+  case 2:
+    break;
+  case 3:
+    break;
+  case 4:
+    break;
+  case 5:
+    break;
+  }
+}
+
+void ViewInventory(GamePackage gamePacakge) 
+{
+  for (int i = 0; i < gamePacakge.nUser.; i++) 
+  {
+
+  }
+}
+
+void ItemSettings() 
+{
+
+}
 
 void DisplayMap(GamePackage gamePackage)
 {

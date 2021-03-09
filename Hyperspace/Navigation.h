@@ -12,6 +12,7 @@
 void DisplayMap(GamePackage gamePackage); //Displays GameWorld class visually
 Sector JumpDrive(GamePackage gamePackage);// Transports the player to a new sector
 Sector sectorSearch(int hash, GamePackage gamePackage);
+void DisplayMenu(GamePackage gamePackage);
 std::vector<Sector> FindRoute(Sector,std::vector<Sector>);
 int CalculateDistance(Sector,Sector);
 

@@ -13,7 +13,6 @@ class Player
 public:
   bool alive; // Is the player alive?
   Sector CurrentSector; // Players current location
-
 private:
   std::string mName; // The name the user wishes to be identified as
   int nBankAccount; // Players Credit Balance.

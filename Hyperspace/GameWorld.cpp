@@ -54,6 +54,19 @@ void Sector::append(Sector childSector)
   nList.push_back(childSector);
 }
 
+bool Sector::hasPlanet() 
+{
+  if (nLocalPlanet != Planet()) 
+  {
+    return false;
+  }
+
+  else 
+  {
+    return true;
+  }
+}
+
 bool Sector::contains(Sector childNode) 
 {
   for (int i = 0; i < nList.size(); i++)

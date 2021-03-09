@@ -14,6 +14,7 @@ public:
   void append(Sector);
   void setDistance(int);
   Planet getPlanet();
+  bool hasPlanet();
   bool contains(Sector);
   int checkNeigbours();
   std::vector<Sector> nList;
