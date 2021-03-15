@@ -53,15 +53,18 @@ void DisplayMenu(GamePackage gamePackage)
 
 void ViewInventory(GamePackage gamePacakge) 
 {
-  for (int i = 0; i < gamePacakge.nUser.; i++) 
-  {
 
-  }
 }
 
 void ItemSettings() 
 {
 
+}
+
+GamePackage InitEncoutner(GamePackage gamePackage) 
+{
+  RandomEncounter Encounter(gamePackage.nUser.CurrentSector.getThreat());
+  return Encounter.CombatInit(gamePackage);
 }
 
 void DisplayMap(GamePackage gamePackage)

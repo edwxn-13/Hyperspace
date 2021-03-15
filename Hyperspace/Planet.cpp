@@ -2,7 +2,7 @@
 
 Planet::Planet()
 {
-
+  pExist = 1;
 }
 
 std::string Planet::getName() 

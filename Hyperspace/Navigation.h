@@ -7,6 +7,8 @@
 #include "Planet.h"
 #include "GameWorld.h"
 #include "GamePackage.h"
+#include "RandomEncounter.h"
+
 #include "Faction.h"
 
 void DisplayMap(GamePackage gamePackage); //Displays GameWorld class visually
@@ -15,4 +17,6 @@ Sector sectorSearch(int hash, GamePackage gamePackage);
 void DisplayMenu(GamePackage gamePackage);
 std::vector<Sector> FindRoute(Sector,std::vector<Sector>);
 int CalculateDistance(Sector,Sector);
+GamePackage InitEncoutner(GamePackage gamePackage);
+
 

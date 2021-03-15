@@ -5,6 +5,7 @@
 #include "Planet.h"
 #include "GameWorld.h"
 #include "Equipment.h"
+#include "Weapon.h"
 /*
  Defines Player, the users controlled entity
  */
@@ -23,13 +24,13 @@ public:
   Player(); // Default player constructor, sets initial values.
   std::string getName(); // Returns players name.
   void setName(std::string); // Sets a new name for the player.
-
+  Weapon getInventroy(int);
   int getBalance(); // Returns the players credit balance
   void setBalance(int); // Sets new balance.
   void Equip(int); // Equips a new item from the inventory.
   void LevelUp(); // Increases players level.
   void XPCheck(); // Checks if player can increace in level.
-  void Fire(int); // Uses currently equipped equipment.
+  void useEquipment(int); // Uses currently equipped equipment.
 
 };
 

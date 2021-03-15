@@ -18,6 +18,11 @@ void Player::setName(std::string newName)
   mName = newName;
 }
 
+Weapon Player::getInventroy(int index)
+{
+  return nPlayerShip.mHardpoints[index];
+}
+
 int Player::getBalance() 
 {
   return nBankAccount;
@@ -33,7 +38,8 @@ void Player::Equip(int newVal)
   
 }
 
-void Player::Fire(int eqVal)
+
+void Player::useEquipment(int eqVal)
 {
   //Inventory[eqVal].
 }

@@ -17,11 +17,13 @@ public:
   bool hasPlanet();
   bool contains(Sector);
   int checkNeigbours();
+  int getThreat();
   std::vector<Sector> nList;
   int nFactionID;
   int xVal, yVal;
   int nNeigbours;
   int nDistanceFromPlayer;
+  int nThreat;
   int nSectorCount;
   int nSearchHash;
   Planet nLocalPlanet;

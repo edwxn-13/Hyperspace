@@ -9,6 +9,7 @@ private:
   int nTechLevel;
   int nThreatLevel;
 public:
+  int pExist;
   void setName(std::string);
   std::string getName();
   Planet();

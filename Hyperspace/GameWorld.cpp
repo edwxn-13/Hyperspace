@@ -47,6 +47,11 @@ int Sector::checkNeigbours()
   return nNeigbours;
 }
 
+int Sector::getThreat()
+{
+  return nThreat;
+}
+
 //Connects secotrs together by adding it the array. w
 //@args Sector childSector
 void Sector::append(Sector childSector) 
@@ -56,7 +61,7 @@ void Sector::append(Sector childSector)
 
 bool Sector::hasPlanet() 
 {
-  if (nLocalPlanet != Planet()) 
+  if (nLocalPlanet.pExist != 1) 
   {
     return false;
   }
@@ -130,6 +135,7 @@ void GameWorld::initialize()
     yVal = rand() % 2400;
     
     Sector tempSector(xVal,yVal);
+    tempSector.nThreat = rand() % 4;
     int planetC = rand() % 2; // does the sector contain a planet?
 
     if (planetC == 1)

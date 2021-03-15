@@ -163,6 +163,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RandomEncounter.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="ShipSystem.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h" />
@@ -176,6 +178,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="RandomEncounter.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="ShipSystem.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Hyperspace.rc" />
