@@ -144,6 +144,7 @@ void GameWorld::initialize()
       tempPlanet.setName("temp planet");
       tempSector.setPlanet(tempPlanet);
     }
+    std::cout << "\n<<" << xVal << " , " << yVal << ">>\n";
     UniverseList.push_back(tempSector);
   }
   
@@ -189,7 +190,6 @@ bool GameWorld::CheckDuplicates(Sector rootNode, Sector childNode)
 
 void GameWorld::Generate(int index)
 {
-  std::cout << nSize << " : size \n";
   nGenNum++;
   if (nGenNum > nSize) 
   {
@@ -204,7 +204,6 @@ void GameWorld::Generate(int index)
       randSectorIndex = (rand() % UniverseList.size() - 1);
     } while (randSectorIndex < 0);
 
-    std::cout << randSectorIndex << " : size \n";
     if (CheckDuplicates(UniverseList[index],UniverseList[randSectorIndex]) == false)
     {
       UniverseList[index].append(UniverseList[randSectorIndex]);

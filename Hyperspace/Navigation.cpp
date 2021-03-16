@@ -90,25 +90,10 @@ Sector sectorSearch(GamePackage gamePackage)
     std::cin >> x;
     std::cout << "<<Y>> :";
     std::cin >> y;
-
-    int hash = x * y;
-
-    std::vector<Sector> secList = gamePackage.nGameWorld.getMap();
-
-    for (int i = 0; i < gamePackage.nGameWorld.getMap().size(); i++)
-    {
-      if (hash == secList[i].nSearchHash)
-      {
-        return secList[i];
-      }
-    }
-    std::cout << "Invalid Coordinates\n";
-  }
 }
 
 Sector JumpDrive(GamePackage gamePackage)
 {
-  DisplayMap(gamePackage);
   Sector destination = sectorSearch(gamePackage);
   std::vector<Sector> route;
   if (destination.contains(gamePackage.nUser.CurrentSector)) 
