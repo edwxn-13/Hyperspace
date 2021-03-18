@@ -21,7 +21,7 @@ public:
   void dailySpening(NaturalResource::RContainer rContainer);
   void market(Faction::FContainer fContainer, NaturalResource::RContainer rContainer, float supplyVal);
   float mine(NaturalResource::RContainer rContainer, int index);
-
+  int sectorCount(GameWorld);
 private:
   std::string nName;
   std::string nDesc;

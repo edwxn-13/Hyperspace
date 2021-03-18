@@ -83,13 +83,30 @@ void DisplayMap(GamePackage gamePackage)
 
 Sector sectorSearch(GamePackage gamePackage)
 {
-  while (true) {
+  while (true) 
+  {
     std::cout << "<<Select Your Destination >>\n";
     int x, y;
     std::cout << "<<X>> :";
     std::cin >> x;
     std::cout << "<<Y>> :";
     std::cin >> y;
+
+    int hash = x * y;
+
+    std::cout << "\n<<Searching Coordinates>>\n";
+
+    for (int i = 0; i < gamePackage.nGameWorld.getSize(); i++) 
+    {
+      if (gamePackage.nGameWorld.UniverseList[i].getHash() == hash) 
+      {
+        std::cout << "\n<<Found Coordinate>>\n";
+
+        return gamePackage.nGameWorld.UniverseList[i];
+      }
+    }
+    std::cout << "\n<<Invalid Coordinates>>\n";
+  }
 }
 
 Sector JumpDrive(GamePackage gamePackage)
@@ -105,36 +122,30 @@ Sector JumpDrive(GamePackage gamePackage)
   return destination;
 }
 
-std::vector<Sector> FindRoute(Sector currentNode, std::vector<Sector> route) 
-{
-  Sector discoveredNode;
-  for(int i = 0; i < currentNode.nList.size() - 1; i++)
-  {
-    discoveredNode = currentNode.nList[i];
-    int distance = CalculateDistance(currentNode, discoveredNode);
-    currentNode.nList[i].setDistance(distance);
-  }
-
-  int smallest_distance = currentNode.nList[0].nDistanceFromPlayer;
-  int largest_distance = currentNode.nList[0].nDistanceFromPlayer;
-
+std::vector<Sector> FindRoute(Sector currentNode, std::vector<Sector> route)
+{ 
+  currentNode.toggleVisited();
+  Sector closestNode;
+  int smallest_distance = 999999999;
+  int distance = 0;
   for (int i = 0; i < currentNode.nList.size(); i++)
   {
-    if (currentNode.nList[i].nDistanceFromPlayer < smallest_distance)
+    if (!currentNode.nList[i].nVisited) 
     {
-      smallest_distance = currentNode.nList[i].nDistanceFromPlayer;
-    }
-    if (currentNode.nList[i].nDistanceFromPlayer > largest_distance)
-    {
-      largest_distance = currentNode.nList[i].nDistanceFromPlayer;
+      distance = CalculateDistance(currentNode.nList[i], currentNode);
+      currentNode.nList[i].setDistance(distance);
+      if (distance < smallest_distance)
+      {
+        closestNode = currentNode.nList[i];
+      }
     }
   }
 
-  route.push_back(discoveredNode);
-  FindRoute(discoveredNode.nList[rand() % discoveredNode.nList.size()],route);
+  route.push_back(closestNode);
+  FindRoute(closestNode.nList[rand() % closestNode.nList.size()], route);
   return route;
 }
-int CalculateDistance(Sector Node1 , Sector Node2) 
+int CalculateDistance(Sector Node1, Sector Node2)
 {
   return sqrt(pow((Node1.xVal - Node2.xVal), 2) + pow((Node1.yVal - Node2.yVal), 2));
 }

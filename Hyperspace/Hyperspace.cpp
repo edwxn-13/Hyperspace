@@ -17,7 +17,7 @@ GamePackage InitGame()
 
   GameWorld gameWorld(size);
   gameWorld.initialize();
-
+  userPlayer.CurrentSector = gameWorld.UniverseList[0];
   GamePackage package(gameWorld , userPlayer);
 
   return package;

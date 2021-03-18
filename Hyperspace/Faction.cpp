@@ -30,7 +30,7 @@ float Faction::getCapital()
 void Faction::factionUpdate(FContainer fContainer, NaturalResource::RContainer rContainer)
 {
   float supplyVar;
-  dailySpening(rContainer);
+
   for (int i = 0; i < nStorage.size(); i++)
   {
     if (i == nType)
@@ -99,6 +99,20 @@ float Faction::mine(NaturalResource::RContainer rContainer, int index)
   }
 
   return nMineRate * rContainer.nResourceList[index].getQuantity() / 100;
+}
+
+int Faction::sectorCount(GameWorld world)
+{
+  int count = 0;
+  for(int i = 0; i < world.UniverseList.size(); i++)
+  {
+    if (world.UniverseList[i].nFactionID == nID) 
+    {
+      count++;
+    }
+  }
+
+  return count;
 }
 
 

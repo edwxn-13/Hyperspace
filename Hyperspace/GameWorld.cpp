@@ -8,6 +8,7 @@ Sector::Sector()
 {
   xVal = 0;
   yVal = 0;
+  nVisited = false;
 };
 
 /*/
@@ -19,11 +20,17 @@ Sector::Sector(int x, int y)
   yVal = y;
   nSearchHash = xVal * yVal;
   nSectorCount++;
+  nVisited = false;
 }
 
 void Sector::setDistance(int val) 
 {
   nDistanceFromPlayer = val;
+}
+
+int Sector::getHash()
+{
+    return xVal * yVal;
 }
 
 //Sets planet value
@@ -38,12 +45,50 @@ Planet Sector::getPlanet()
 }
 
 //Returns the amount of sectors local to itself.
-int Sector::checkNeigbours()
+int Sector::checkNeigbours(GameWorld world)
 {
   //select all sectors in a range
   //if 2 or more belong to the parent faction then convert them
   //else belongs to the closest faction
   //else factionless
+  int range;
+  std::vector<Sector> closeSectors;
+  std::vector<Sector> enemySectors;
+  for (int i = 0; i < world.UniverseList.size(); i++) 
+  {
+    if (world.UniverseList[i].xVal < (xVal + 100) && world.UniverseList[i].yVal < (yVal + 100)) 
+    {
+      if (world.UniverseList[i].nFactionID == nFactionID) 
+      {
+        closeSectors.push_back(world.UniverseList[i]);
+      }
+
+      else 
+      {
+        enemySectors.push_back(world.UniverseList[i]);
+      }
+    }
+  }
+
+  if (closeSectors.size() < 2) 
+  {
+    nFactionID = 0;
+
+    if (PopularFaction(enemySectors) > 2) 
+    {
+      nFactionID = PopularFaction(enemySectors)
+    }
+  }
+
+  else if (closeSectors.size() < 4) 
+  {
+
+  }
+
+  else if (closeSectors.size() > 4)
+  {
+
+  }
   return nNeigbours;
 }
 
@@ -51,6 +96,10 @@ int Sector::getThreat()
 {
   return nThreat;
 }
+
+int Sector::factionCount() {}
+
+int Sector::PopularFaction(std::vector<Sector> enemySectors) {}
 
 //Connects secotrs together by adding it the array. w
 //@args Sector childSector
@@ -76,13 +125,18 @@ bool Sector::contains(Sector childNode)
 {
   for (int i = 0; i < nList.size(); i++)
   {
-    if (nList[i].nSearchHash == childNode.nSearchHash) 
+    if (nList[i].getHash() == childNode.getHash()) 
     {
       return true;
     }
   }
 
   return false;
+}
+
+void Sector::toggleVisited()
+{
+  nVisited = !nVisited;
 }
 
 void Sector::liberate() 
