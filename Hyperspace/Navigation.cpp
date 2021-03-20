@@ -38,7 +38,7 @@ void DisplayMenu(GamePackage gamePackage)
     DisplayMenu(gamePackage);
     break;
   case 1:
-    JumpDrive(gamePackage);
+    gamePackage.nUser.setSector(JumpDrive(gamePackage));
     break;
   case 2:
     break;
@@ -112,37 +112,61 @@ Sector sectorSearch(GamePackage gamePackage)
 Sector JumpDrive(GamePackage gamePackage)
 {
   Sector destination = sectorSearch(gamePackage);
-  std::vector<Sector> route;
-  if (destination.contains(gamePackage.nUser.CurrentSector)) 
+  HQueue route;
+  route = FindRoute(gamePackage.nUser.CurrentSector, destination, route);
+  std::cout << "\n\n<<Initiating Jump>>\n";
+  while (gamePackage.nUser.getShip().getFuel() != 0)
   {
-    std::cout << "Jumping to " << destination.nSearchHash << "\n";
-    return destination;
+    if (route.size() > 0) 
+    { 
+      destination = route.deQueue();
+      gamePackage.nUser.getShip().burnFuel(50);
+    }
+
+    else { break; }
   }
-  route = FindRoute(gamePackage.nUser.CurrentSector , route);
+
+  std::cout << "\n\n<<You have arrived at your destination>>\n";
   return destination;
 }
 
-std::vector<Sector> FindRoute(Sector currentNode, std::vector<Sector> route)
+HQueue FindRoute(Sector currentNode, Sector destination , HQueue route)
 { 
   currentNode.toggleVisited();
   Sector closestNode;
   int smallest_distance = 999999999;
   int distance = 0;
+  if (currentNode.getHash() == destination.getHash()) 
+  {
+    std::cout << "Jumping to " << destination.nSearchHash << "\n";
+    return route;
+  }
+
+  if (currentNode.nList.size() == 0) 
+  {
+    return route;
+  }
+
   for (int i = 0; i < currentNode.nList.size(); i++)
   {
     if (!currentNode.nList[i].nVisited) 
     {
+      if (currentNode.nList[i].nList.size() == 0) 
+      {
+        continue;
+      }
       distance = CalculateDistance(currentNode.nList[i], currentNode);
       currentNode.nList[i].setDistance(distance);
       if (distance < smallest_distance)
       {
+        smallest_distance = distance;
         closestNode = currentNode.nList[i];
       }
     }
   }
 
-  route.push_back(closestNode);
-  FindRoute(closestNode.nList[rand() % closestNode.nList.size()], route);
+  route.enQueue(closestNode);
+  FindRoute(closestNode, destination, route);
   return route;
 }
 int CalculateDistance(Sector Node1, Sector Node2)

@@ -1,8 +1,16 @@
 #pragma once
 #include <vector>
 #include "Planet.h"
+#include <string>
 
 // Make it a graph to secure these marks bout this paper
+class GameWorld;
+
+struct NeighbourFactionCount {
+  NeighbourFactionCount(int, int, int, int);
+  int f1, f2, f3;
+  int popularID;
+};
 
 class Sector
 {
@@ -18,10 +26,10 @@ public:
   bool hasPlanet();
   bool contains(Sector);
   void toggleVisited();
-  int checkNeigbours();
+  void checkNeigbours(GameWorld);
   int getThreat();
   int factionCount();
-  int PopularFaction(std::vector<Sector>);
+  NeighbourFactionCount PopularFaction(std::vector<Sector>);
   std::vector<Sector> nList;
   int nFactionID;
   int xVal, yVal;
@@ -50,7 +58,7 @@ public:
   GameWorld(int);
   void initialize();
   std::vector<Sector> getWorld();
-  void update();
+  void update(GameWorld);
   int getSize();
   std::vector<Sector> getMap();
 };

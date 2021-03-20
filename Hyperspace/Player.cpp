@@ -33,6 +33,16 @@ void Player::setBalance(int newBalance)
   nBankAccount = newBalance;
 }
 
+void Player::setSector(Sector newSector)
+{
+  CurrentSector = newSector;
+}
+
+Ship Player::getShip()
+{
+  return nPlayerShip;
+}
+
 void Player::Equip(int newVal)
 {
   

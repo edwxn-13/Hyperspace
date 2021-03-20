@@ -24,6 +24,7 @@ GamePackage RandomEncounter::Combat(GamePackage gamePackage)
   bool encounterStatus = true;
   while (encounterStatus) 
   {
+    DisplayTargets();
     int pTargetChoice;
     std::cout << "\n<<Select Enemy Target>>\n";
     std::cin >> pTargetChoice;
@@ -43,15 +44,15 @@ GamePackage RandomEncounter::Combat(GamePackage gamePackage)
       if (pSystemChoice < 5 && pSystemChoice < 0)
       {
         int damage = chosenWeapon.useEquipment();
-        eTarget.nSystems[pSystemChoice - 1].integrity = eTarget.nSystems[pSystemChoice - 1].integrity - damage;
+        eTarget.getShip().nSystems[pSystemChoice - 1].integrity = eTarget.getShip().nSystems[pSystemChoice - 1].integrity - damage;
         std::cout << "\n<<"<< damage <<" Damge Delt To Enemy>>\n";
       }
       else 
       {
-        for (int i = 0; i < eTarget.nSystems.size(); i++) 
+        for (int i = 0; i < eTarget.getShip().nSystems.size(); i++) 
         {
           int damage = chosenWeapon.useEquipment();
-          eTarget.nSystems[i].integrity = eTarget.nSystems[i].integrity - (damage/10);
+          eTarget.getShip().nSystems[i].integrity = eTarget.getShip().nSystems[i].integrity - (damage/10);
           std::cout << "\n<<" << damage << " Damge Delt To Enemy>>\n";
         }
 
@@ -86,5 +87,13 @@ GamePackage RandomEncounter::Combat(GamePackage gamePackage)
 
   return gamePackage;
 
+}
+
+void RandomEncounter::DisplayTargets()
+{
+  for (int i = 0; i < nEnemyContainer.size(); i++) 
+  {
+    nEnemyContainer[i].displayStats();
+  }
 }
 

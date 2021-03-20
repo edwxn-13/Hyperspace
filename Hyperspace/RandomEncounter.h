@@ -8,6 +8,7 @@ public:
   RandomEncounter(int);
   GamePackage CombatInit(GamePackage);
   GamePackage Combat(GamePackage gamePackage);
+  void DisplayTargets();
 private:
   int threat;
   std::vector<Enemy> nEnemyContainer;

@@ -60,8 +60,8 @@ void GameLoop(GamePackage gamePackage)
   while (gamePackage.nUser.alive) 
   {
     DisplayMenu(gamePackage);
-    gamePackage.nUser.CurrentSector = Travel(gamePackage);
     InitEncoutner(gamePackage);
+    gamePackage.nGameWorld.update(gamePackage.nGameWorld);
   }
 }
 

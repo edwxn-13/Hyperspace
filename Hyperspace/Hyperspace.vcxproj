@@ -156,6 +156,7 @@
     <ClCompile Include="Faction.cpp" />
     <ClCompile Include="GamePackage.cpp" />
     <ClCompile Include="GameWorld.cpp" />
+    <ClCompile Include="HQueue.cpp" />
     <ClCompile Include="Hyperspace.cpp" />
     <ClCompile Include="NaturalResource.cpp" />
     <ClCompile Include="Navigation.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Faction.h" />
     <ClInclude Include="GamePackage.h" />
     <ClInclude Include="GameWorld.h" />
+    <ClInclude Include="HQueue.h" />
     <ClInclude Include="NaturalResource.h" />
     <ClInclude Include="Navigation.h" />
     <ClInclude Include="Planet.h" />

@@ -8,14 +8,14 @@
 #include "GameWorld.h"
 #include "GamePackage.h"
 #include "RandomEncounter.h"
-
+#include "HQueue.h"
 #include "Faction.h"
 
 void DisplayMap(GamePackage gamePackage); //Displays GameWorld class visually
 Sector JumpDrive(GamePackage gamePackage);// Transports the player to a new sector
-Sector sectorSearch(int hash, GamePackage gamePackage);
+Sector sectorSearch(GamePackage gamePackage);
 void DisplayMenu(GamePackage gamePackage);
-std::vector<Sector> FindRoute(Sector currentNode, std::vector<Sector> route);
+HQueue FindRoute(Sector currentNode, Sector destination , HQueue route);
 int CalculateDistance(Sector, Sector);
 GamePackage InitEncoutner(GamePackage gamePackage);
 

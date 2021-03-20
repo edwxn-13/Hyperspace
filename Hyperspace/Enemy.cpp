@@ -2,17 +2,14 @@
 
 Enemy::Enemy(int threat) 
 {
+  Ship newShip(threat);
+  mShip = newShip;
   mShip.setArmour(100 * threat);
-  mShip.setArmour(1200 * threat);
-  nSystems.push_back(ShipSystem("Thrusters"));
-  nSystems.push_back(ShipSystem("Shield Emitter"));
-  nSystems.push_back(ShipSystem("Weapons"));
-
+  mShip.setShields(1200 * threat);
 }
 
 Player Enemy::attack(GamePackage gamePackage)
 {
-
   return gamePackage.nUser;
 }
 
@@ -23,12 +20,12 @@ Ship Enemy::getShip()
 
 bool Enemy::retreat()
 {
-  if (nSystems[0].integrity < 1) 
+  if (mShip.nSystems[0].integrity < 1) 
   {
     return false;
   }
 
-  else if (nSystems[1].integrity < 1) 
+  else if (mShip.nSystems[1].integrity < 1) 
   {
     std::cout << "\n<<The enemy " << mShip.getName() << " has retreated>>\n\n";
     return true;
@@ -47,4 +44,9 @@ bool Enemy::retreat()
 
     else {return false;}
   }
+}
+
+void Enemy::displayStats()
+{
+  std::cout << mShip.getName() << "  Shields: " << "  Armour: " << mShip.getArmour();
 }

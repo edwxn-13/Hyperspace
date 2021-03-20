@@ -12,12 +12,11 @@ private:
   Ship mShip;
   Faction nFaction;
   std::vector<Equipment> mInventory;
-  
 public:
-  std::vector <ShipSystem>  nSystems;
   Enemy(int);
   Player attack(GamePackage);
   Ship getShip();
   bool retreat();
+  void displayStats();
 };
 

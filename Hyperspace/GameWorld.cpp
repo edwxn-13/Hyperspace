@@ -45,7 +45,7 @@ Planet Sector::getPlanet()
 }
 
 //Returns the amount of sectors local to itself.
-int Sector::checkNeigbours(GameWorld world)
+void Sector::checkNeigbours(GameWorld world)
 {
   //select all sectors in a range
   //if 2 or more belong to the parent faction then convert them
@@ -58,7 +58,7 @@ int Sector::checkNeigbours(GameWorld world)
   {
     if (world.UniverseList[i].xVal < (xVal + 100) && world.UniverseList[i].yVal < (yVal + 100)) 
     {
-      if (world.UniverseList[i].nFactionID == nFactionID) 
+      if (nFactionID == world.UniverseList[i].nFactionID)
       {
         closeSectors.push_back(world.UniverseList[i]);
       }
@@ -70,26 +70,60 @@ int Sector::checkNeigbours(GameWorld world)
     }
   }
 
-  if (closeSectors.size() < 2) 
-  {
-    nFactionID = 0;
+  NeighbourFactionCount track = PopularFaction(enemySectors);
 
-    if (PopularFaction(enemySectors) > 2) 
+  switch (track.popularID)
+  {
+  case 1:
+    if (track.f1 > 2) 
     {
-      nFactionID = PopularFaction(enemySectors)
+      nFactionID = track.popularID;
     }
+    break;
+  case 2:
+    if (track.f2 > 2)
+    {
+      nFactionID = track.popularID;
+    }
+    break;
+  case 3:
+    if (track.f3 > 2)
+    {
+      nFactionID = track.popularID;
+    }
+    break;
   }
 
-  else if (closeSectors.size() < 4) 
+  if (closeSectors.size() < 3) 
   {
+    switch (track.popularID)
+    {
+    case 1:
+      if (track.f1 > 2)
+      {
+        nFactionID = track.popularID;
+      }
+      break;
+    case 2:
+      if (track.f2 > 2)
+      {
+        nFactionID = track.popularID;
+      }
+      break;
+    case 3:
+      if (track.f3 > 2)
+      {
+        nFactionID = track.popularID;
+      }
+      break;
+    }
 
   }
 
-  else if (closeSectors.size() > 4)
+  else if (closeSectors.size() > 3)
   {
-
+    liberate();
   }
-  return nNeigbours;
 }
 
 int Sector::getThreat()
@@ -97,9 +131,49 @@ int Sector::getThreat()
   return nThreat;
 }
 
-int Sector::factionCount() {}
+int Sector::factionCount() 
+{
+  int count = 0;
+  return count;
+}
 
-int Sector::PopularFaction(std::vector<Sector> enemySectors) {}
+
+NeighbourFactionCount Sector::PopularFaction(std::vector<Sector> enemySectors) 
+{
+  int f1Count = 0;
+  int f2Count = 0;
+  int f3Count = 0;
+  
+  for(int i = 0; i < enemySectors.size(); i++) 
+  {
+    if (enemySectors[i].nFactionID == 1) { f1Count++; }
+    if (enemySectors[i].nFactionID == 1) { f2Count++; }
+    if (enemySectors[i].nFactionID == 1) { f3Count++; }
+  }
+
+  int popFaction;
+
+  if(f1Count > f2Count)
+  {
+    if (f3Count > f1Count) { popFaction = 3; return NeighbourFactionCount(f1Count, f2Count, f3Count, popFaction);}
+    popFaction =  1;
+    return NeighbourFactionCount(f1Count, f2Count, f3Count, popFaction);
+  }
+
+  if (f2Count > f3Count) 
+  {
+    if (f1Count > f2Count) { popFaction = 1; return NeighbourFactionCount(f1Count, f2Count, f3Count, popFaction);}
+    popFaction =  2;
+    return NeighbourFactionCount(f1Count, f2Count, f3Count, popFaction);
+  }
+
+  if (f3Count > f1Count) 
+  {
+    if (f2Count > f3Count) { popFaction = 2; return NeighbourFactionCount( f1Count,f2Count,f3Count,popFaction );}
+    popFaction = 3;
+    return NeighbourFactionCount(f1Count, f2Count, f3Count, popFaction);
+  }
+}
 
 //Connects secotrs together by adding it the array. w
 //@args Sector childSector
@@ -224,9 +298,14 @@ std::vector<Sector> GameWorld::SortList(std::vector<Sector> rootList)
 */
 bool GameWorld::CheckDuplicates(Sector rootNode, Sector childNode)
 {
+  if (rootNode.getHash() == childNode.getHash()) 
+  {
+    return true;
+  }
+
   for(int i = 0; i < rootNode.nList.size(); i++)
   {
-    if(rootNode.nList[i].xVal == childNode.xVal && rootNode.nList[i].yVal == childNode.yVal)
+    if(rootNode.getHash() == childNode.getHash())
     {
       return true;
     }
@@ -294,12 +373,12 @@ void GameWorld::Generate(int index)
  Factions update their terratories by calculating the amount of faction
  owend sectors in a specified area
  */
-void GameWorld::update()
+void GameWorld::update(GameWorld world)
 {
   
   for(int i = 1; i < nSize-1; i++)
   {
-    UniverseList[i].checkNeigbours();
+    UniverseList[i].checkNeigbours(world);
   }
   // First check the faction of the node
   // Check the amount of neigbouts that belong to the same faction
@@ -308,4 +387,10 @@ void GameWorld::update()
   // If not then the node is controlled by the nearest faction.
 }
 
-
+NeighbourFactionCount::NeighbourFactionCount(int f1Val, int f2Val, int f3Val, int popVal)
+{
+  f1 = f1Val;
+  f2 = f2Val;
+  f3 = f3Val;
+  popularID = popVal;
+}
