@@ -14,6 +14,9 @@ public:
 
 private:
   int fuel;
+  int oShields;
+  int oArmour;
+  int oFuel;
   int mShields; // Shield value.
   int mArmour; //Armour value.
   int mHardpointNum; // Number of hardpoints, differs from ship to ship.
@@ -26,8 +29,10 @@ public:
   void setShields(int); //Sets shield value
   void setArmour(int); // Sets armour value.
   int getArmour();
+  int getShields();
   int getFuel();
   void burnFuel(int);
+  void repair();
   std::string getName();
 };
 

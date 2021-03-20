@@ -48,5 +48,5 @@ bool Enemy::retreat()
 
 void Enemy::displayStats()
 {
-  std::cout << mShip.getName() << "  Shields: " << "  Armour: " << mShip.getArmour();
+  std::cout << mShip.getName() << "  Shields: " << mShip.getShields() << "  Armour: " << mShip.getArmour();
 }

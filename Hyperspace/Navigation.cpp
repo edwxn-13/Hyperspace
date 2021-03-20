@@ -120,6 +120,7 @@ Sector JumpDrive(GamePackage gamePackage)
     if (route.size() > 0) 
     { 
       destination = route.deQueue();
+      std::cout << "\n<<" << destination.getHash() << ">>\n\n";
       gamePackage.nUser.getShip().burnFuel(50);
     }
 
@@ -151,10 +152,6 @@ HQueue FindRoute(Sector currentNode, Sector destination , HQueue route)
   {
     if (!currentNode.nList[i].nVisited) 
     {
-      if (currentNode.nList[i].nList.size() == 0) 
-      {
-        continue;
-      }
       distance = CalculateDistance(currentNode.nList[i], currentNode);
       currentNode.nList[i].setDistance(distance);
       if (distance < smallest_distance)

@@ -164,7 +164,9 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RandomEncounter.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="ShipArchive.cpp" />
     <ClCompile Include="ShipSystem.cpp" />
+    <ClCompile Include="SpaceStation.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +183,7 @@
     <ClInclude Include="RandomEncounter.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="ShipSystem.h" />
+    <ClInclude Include="SpaceStation.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>

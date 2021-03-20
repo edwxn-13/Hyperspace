@@ -20,9 +20,12 @@ Ship::Ship()
 
 Ship::Ship(int threat)
 {
-  fuel = 1000;
-  mShields = 100;
-  mArmour = 100;
+  oFuel = 1000;
+  oShields = 100;
+  oArmour = 100;
+  fuel = oFuel;
+  mShields = oShields;
+  mArmour = oArmour;
   nSystems.push_back(ShipSystem("Thrusters"));
   nSystems.push_back(ShipSystem("Shield Emitter"));
   nSystems.push_back(ShipSystem("Weapons"));
@@ -44,6 +47,11 @@ int Ship::getArmour()
     return mArmour;
 }
 
+int Ship::getShields()
+{
+  return mShields;
+}
+
 int Ship::getFuel()
 {
   return fuel;
@@ -52,6 +60,14 @@ int Ship::getFuel()
 void Ship::burnFuel(int newVal)
 {
   fuel = fuel - newVal;
+}
+
+void Ship::repair()
+{
+  mShields = oShields;
+  mArmour = oArmour;
+  fuel = oFuel;
+  std::cout << "\n<<Ship Succesfully Restored>>>\n\n";
 }
 
 std::string Ship::getName()
