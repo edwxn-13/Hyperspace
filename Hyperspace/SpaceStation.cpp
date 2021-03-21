@@ -1,5 +1,5 @@
 #include "SpaceStation.h"
-
+#include "Player.h"
 SpaceStation::SpaceStation()
 {
 }
@@ -43,16 +43,31 @@ SpaceStation::SpaceStation(int tech)
   }
 }
 
+void SpaceStation::market(Player user)
+{
+  int input;
+  std::cin >> input;
+  if (input < 5)
+  {
+    user.purchase(nShop[input - 1]);
+  }
+
+  else
+  {
+    user.purchase(nHanger[input - nShop.size() - 1]);
+  }
+}
+
 void SpaceStation::displayGoods()
 {
   std::cout << "\nWeapons: \n\n";
   for (int i = 0; i < nShop.size(); i++) 
   {
-    std::cout << nShop[i].getName() << " Price: " << nShop[i].getPrice() << " Damage: " << nShop[i].getDamage() << "\n";
+    std::cout << i << ". "<< nShop[i].getName() << " Price: " << nShop[i].getPrice() << " Damage: " << nShop[i].getDamage() << "\n";
   }
   std::cout << "\nShips: \n\n";
   for (int i = 0; i < nHanger.size(); i++)
   {
-    std::cout << nHanger[i].getName() << " Price: " << nHanger[i].getPrice() << " Shields: " << nHanger[i].getShields() << " Armour: " << nHanger[i].getArmour() << "\n";
+    std::cout << i+nShop.size() << ". " << nHanger[i].getName() << " Price: " << nHanger[i].getPrice() << " Shields: " << nHanger[i].getShields() << " Armour: " << nHanger[i].getArmour() << "\n";
   }
 }

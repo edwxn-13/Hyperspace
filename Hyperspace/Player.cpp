@@ -46,6 +46,36 @@ void Player::displayStats()
   std::cout << "\nCredits: " << nBankAccount <<  "\n" << nPlayerShip.getName() << "  Shields: " << nPlayerShip.getShields() << "  Armour: " << nPlayerShip.getArmour() << "\n";
 }
 
+void Player::purchase(Weapon newWeapon)
+{
+  if (nBankAccount > newWeapon.getPrice())
+  {
+    nBankAccount = nBankAccount - newWeapon.getPrice();
+    nInventory.push_back(newWeapon);
+    std::cout << "\n<<Purchase Succesful>>\n";
+  }
+
+  else
+  {
+    std::cout << "\n<<Insufficient Funds>>\n";
+  }
+}
+
+void Player::purchase(Ship newShip)
+{
+  if (nBankAccount > newShip.getPrice())
+  {
+    nBankAccount = nBankAccount - newShip.getPrice();
+    nPlayerShip = newShip;
+    std::cout << "\n<<Purchase Succesful>>\n";
+  }
+
+  else
+  {
+    std::cout << "\n<<Insufficient Funds>>\n";
+  }
+}
+
 Ship Player::getShip()
 {
   return nPlayerShip;

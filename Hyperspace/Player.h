@@ -29,6 +29,9 @@ public:
   void setBalance(int); // Sets new balance.
   void setSector(Sector);
   void displayStats();
+  void purchase(Ship);
+  void purchase(Weapon);
+
   Ship getShip();
   void setShip(Ship);
   void Equip(int); // Equips a new item from the inventory.
