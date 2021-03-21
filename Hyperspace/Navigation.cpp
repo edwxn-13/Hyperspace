@@ -10,12 +10,12 @@
  Also triggers encounter logic.
  */
 
-void DisplayMenu(GamePackage gamePackage) 
+Player DisplayMenu(GamePackage gamePackage)
 {
   int inputValue;
   if (gamePackage.nUser.CurrentSector.hasPlanet()) 
   {
-    std::cout << "\n1.View Navigation: \n2.View Inventroy: \n3.View Objectives: \n4.View Planet: \n5.View Station: ";
+    std::cout << "\n1.View Navigation: \n2.View Inventroy: \n3.View Objectives: \n4.View Station: \n5.View Planet: ";
     do
     {
       std::cout << "Select Option\n";
@@ -29,9 +29,10 @@ void DisplayMenu(GamePackage gamePackage)
     std::cout << "\n1.View Navigation: \n2.View Inventroy: \n3.View Objectives: \n4.View Station: ";
     do
     {
-      std::cout << "Select Option\n";
+      std::cout << "\nSelect Option: ";
 
       std::cin >> inputValue;
+      std::cout << "\n";
     } while (inputValue > 4 && inputValue < 1);
   }
 
@@ -44,6 +45,88 @@ void DisplayMenu(GamePackage gamePackage)
     gamePackage.nUser.setSector(JumpDrive(gamePackage));
     break;
   case 2:
+    ViewInventory(gamePackage);
+    break;
+  case 3:
+    break;
+  case 4:
+    ViewStation(gamePackage);
+    break;
+  case 5:
+    ViewPlanet(gamePackage);
+    break;
+  }
+
+  return gamePackage.nUser;
+}
+
+void ViewInventory(GamePackage gamePacakge) 
+{
+  for (int i = 0; i < gamePacakge.nUser.getShip().mHardpoints.size(); i++) 
+  {
+    std::cout << "\n" << gamePacakge.nUser.getShip().mHardpoints[i].getName();
+  }
+  
+  DisplayMenu(gamePacakge);
+}
+
+void ViewPlanet(GamePackage gamePackage) 
+{
+  std::cout << "\n\n Planet Details \n Name : " << gamePackage.nUser.CurrentSector.getPlanet().getName();
+  gamePackage.nUser.CurrentSector.getPlanet().displayStats();
+  DisplayMenu(gamePackage);
+}
+
+void ViewStation(GamePackage gamePackage)
+{
+  int inputValue;
+  std::cout << "\n1.View Store: \n2.View Inventroy: \n3.View Objectives: \n4.View Galactic News: \n";
+  do
+  {
+    std::cout << "Select Option: ";
+
+    std::cin >> inputValue;
+    std::cout << "\n";
+  } while (inputValue > 5 && inputValue < 1);
+  
+  switch (inputValue)
+    {
+    default:
+      break;
+    case 1:
+      gamePackage.nUser.CurrentSector.getStation().displayGoods();
+      break;
+    case 2:
+      break;
+    case 3:
+      break;
+    case 4:
+      break;
+    case 5:
+      break;
+    }
+  DisplayMenu(gamePackage);
+}
+
+void ItemSettings(int type, Player user) 
+{
+  int inputValue;
+  std::cout << "\n1.View Store: \n2.View Inventroy: \n3.View Objectives: \n4.View Galactic News: \n";
+  do
+  {
+    std::cout << "Select Option: ";
+
+    std::cin >> inputValue;
+    std::cout << "\n";
+  } while (inputValue > 5 && inputValue < 1);
+
+  switch (inputValue)
+  {
+  default:
+    break;
+  case 1:
+    break;
+  case 2:
     break;
   case 3:
     break;
@@ -52,16 +135,6 @@ void DisplayMenu(GamePackage gamePackage)
   case 5:
     break;
   }
-}
-
-void ViewInventory(GamePackage gamePacakge) 
-{
-
-}
-
-void ItemSettings() 
-{
-
 }
 
 GamePackage InitEncoutner(GamePackage gamePackage) 
@@ -116,6 +189,7 @@ Sector JumpDrive(GamePackage gamePackage)
 {
   Sector destination = sectorSearch(gamePackage);
   HQueue route;
+  route.enQueue(gamePackage.nUser.CurrentSector);
   route = FindRoute(gamePackage.nUser.CurrentSector, destination, route);
   std::cout << "\n\n<<Initiating Jump>>\n";
   while (gamePackage.nUser.getShip().getFuel() != 0)
@@ -131,13 +205,14 @@ Sector JumpDrive(GamePackage gamePackage)
   }
 
   std::cout << "\n\n<<You have arrived at your destination>>\n";
+  destination.display();
   return destination;
 }
 
 HQueue FindRoute(Sector currentNode, Sector destination , HQueue route)
 { 
   currentNode.toggleVisited();
-  Sector closestNode;
+  Sector closestNode(0,0);
   int smallest_distance = 999999999;
   int distance = 0;
   if (currentNode.getHash() == destination.getHash()) 
@@ -145,26 +220,23 @@ HQueue FindRoute(Sector currentNode, Sector destination , HQueue route)
     std::cout << "Jumping to " << destination.nSearchHash << "\n";
     return route;
   }
-
-  if (currentNode.nList.size() == 0) 
-  {
-    return route;
-  }
-
+  if (currentNode.xVal == 0) { return route; }
   for (int i = 0; i < currentNode.nList.size(); i++)
   {
-    if (!currentNode.nList[i].nVisited) 
+    if (!route.contains(currentNode.nList[i])) 
     {
       distance = CalculateDistance(currentNode.nList[i], currentNode);
       currentNode.nList[i].setDistance(distance);
       if (distance < smallest_distance)
       {
+       
         smallest_distance = distance;
         closestNode = currentNode.nList[i];
       }
     }
   }
-
+  std::cout << "\n";
+  closestNode.display();
   route.enQueue(closestNode);
   FindRoute(closestNode, destination, route);
   return route;

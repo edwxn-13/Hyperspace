@@ -8,6 +8,7 @@ Sector::Sector()
 {
   xVal = 0;
   yVal = 0;
+  nFactionID = 0;
   nVisited = false;
 };
 
@@ -16,6 +17,7 @@ Sector::Sector()
  /*/
 Sector::Sector(int x, int y)
 {
+  nFactionID = 0;
   xVal = x;
   yVal = y;
   nSearchHash = xVal * yVal;
@@ -42,6 +44,16 @@ void Sector::setPlanet(Planet newPlanet)
 Planet Sector::getPlanet()
 {
   return nLocalPlanet;
+}
+
+SpaceStation Sector::getStation()
+{
+  return nLocalStation;
+}
+
+void Sector::setStation(SpaceStation newStation)
+{
+  nLocalStation = newStation;
 }
 
 //Returns the amount of sectors local to itself.
@@ -131,6 +143,11 @@ int Sector::getThreat()
   return nThreat;
 }
 
+int Sector::getTech()
+{
+  return nTechLevel;
+}
+
 int Sector::factionCount() 
 {
   int count = 0;
@@ -181,6 +198,11 @@ NeighbourFactionCount Sector::PopularFaction(std::vector<Sector> enemySectors)
 void Sector::append(Sector childSector) 
 {
   nList.push_back(childSector);
+}
+
+void Sector::display()
+{
+  std::cout << "Sector: <<" << xVal << "," << yVal << ">>\n" << "Faction: " << nFactionID;
 }
 
 bool Sector::hasPlanet() 
@@ -264,14 +286,19 @@ void GameWorld::initialize()
     yVal = rand() % 2400;
     
     Sector tempSector(xVal,yVal);
+    tempSector.nTechLevel = rand() % 5;
     tempSector.nThreat = rand() % 4;
     int planetC = rand() % 2; // does the sector contain a planet?
 
     if (planetC == 1)
     {
-      Planet tempPlanet;
-      tempPlanet.setName("temp planet");
+      Planet tempPlanet(tempSector.getTech(), tempSector.getThreat());
       tempSector.setPlanet(tempPlanet);
+    }
+    else
+    {
+      SpaceStation tempStation = SpaceStation(tempSector.getTech());
+      tempSector.setStation(tempStation);
     }
     std::cout << "\n<<" << xVal << " , " << yVal << ">>\n";
     UniverseList.push_back(tempSector);
@@ -341,6 +368,7 @@ void GameWorld::Generate(int index)
     if (CheckDuplicates(UniverseList[index],UniverseList[randSectorIndex]) == false)
     {
       UniverseList[index].append(UniverseList[randSectorIndex]);
+      UniverseList[randSectorIndex].append(UniverseList[index]);
       Generate(randSectorIndex);
     }
   }

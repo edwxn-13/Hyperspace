@@ -16,6 +16,7 @@ private:
   int fuel;
   int oShields;
   int oArmour;
+  int nPrice;
   int oFuel;
   int mShields; // Shield value.
   int mArmour; //Armour value.
@@ -24,11 +25,18 @@ private:
 public:
   //Initializes a new ship object.
   Ship();
+  Ship(std::string name, int shields, int armour, int fuel, int price);
   Ship(int);
   std::vector<ShipSystem> nSystems;
+  void makeShields(int);
+  void makeArmour(int);
   void setShields(int); //Sets shield value
   void setArmour(int); // Sets armour value.
+  void damageShip(int);
+  void damageSystem(int , int);
+  void setName(std::string);
   int getArmour();
+  int getPrice();
   int getShields();
   int getFuel();
   void burnFuel(int);

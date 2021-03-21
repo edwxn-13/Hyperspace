@@ -4,18 +4,44 @@ Enemy::Enemy(int threat)
 {
   Ship newShip(threat);
   mShip = newShip;
-  mShip.setArmour(100 * threat);
-  mShip.setShields(1200 * threat);
+  mShip.makeArmour(100 * threat);
+  mShip.makeShields(125 * threat);
+
+  if (threat < 2) 
+  {
+    mShip.mHardpoints[0] = Weapon("Light Assault Laser" , 20 , 100 , 8, 1);
+    mShip.setName("Light Fighter");
+  }
+
+  else if (threat < 4)
+  {
+    mShip.mHardpoints[0] = Weapon("Light Assault Laser", 40, 620, 14, 2);
+    mShip.setName("Medium Fighter");
+  }
+
+  else
+  {
+    mShip.mHardpoints[0] = Weapon("Light Assault Laser", 55, 1340, 7, 4);
+    mShip.setName("Heavy Assault Frigate");
+  }
 }
 
 Player Enemy::attack(GamePackage gamePackage)
 {
+  Ship target = gamePackage.nUser.getShip();
+  target.damageShip(mShip.mHardpoints[0].useEquipment());
+  gamePackage.nUser.setShip(target);
   return gamePackage.nUser;
 }
 
 Ship Enemy::getShip() 
 {
   return mShip;
+}
+
+void Enemy::setShip(Ship newShip)
+{
+  mShip = newShip;
 }
 
 bool Enemy::retreat()
@@ -34,7 +60,7 @@ bool Enemy::retreat()
   else 
   {
     srand(time(0));
-    int retreatChance = rand() % 10;
+    int retreatChance = rand() % 25;
 
     if (retreatChance < 3) 
     {
@@ -48,5 +74,5 @@ bool Enemy::retreat()
 
 void Enemy::displayStats()
 {
-  std::cout << mShip.getName() << "  Shields: " << mShip.getShields() << "  Armour: " << mShip.getArmour();
+  std::cout << "\n" << mShip.getName() << "  Shields: " << mShip.getShields() << "  Armour: " << mShip.getArmour() << "\n";
 }

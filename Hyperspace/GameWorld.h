@@ -2,7 +2,7 @@
 #include <vector>
 #include "Planet.h"
 #include <string>
-
+#include "SpaceStation.h"
 // Make it a graph to secure these marks bout this paper
 class GameWorld;
 
@@ -21,14 +21,18 @@ public:
   void setPlanet(Planet);
   void liberate();
   void append(Sector);
+  void display();
   void setDistance(int);
   int getHash();
   Planet getPlanet();
+  SpaceStation getStation();
+  void setStation(SpaceStation);
   bool hasPlanet();
   bool contains(Sector);
   void toggleVisited();
   void checkNeigbours(GameWorld);
   int getThreat();
+  int getTech();
   int factionCount();
   NeighbourFactionCount PopularFaction(std::vector<Sector>);
   std::vector<Sector> nList;
@@ -38,9 +42,11 @@ public:
   bool nVisited;
   int nDistanceFromPlayer;
   int nThreat;
+  int nTechLevel;
   int nSectorCount;
   int nSearchHash;
   Planet nLocalPlanet;
+  SpaceStation nLocalStation;
 };
 
 class GameWorld

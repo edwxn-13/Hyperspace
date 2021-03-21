@@ -21,3 +21,12 @@ int HQueue::size()
 {
   return queueList.size() - pointer;
 }
+
+bool HQueue::contains(Sector testSec)
+{
+  for (int i = 0; i < queueList.size(); i++) 
+  {
+    if (queueList[i].getHash() == testSec.getHash()) { return true; }
+  }
+  return false;
+}

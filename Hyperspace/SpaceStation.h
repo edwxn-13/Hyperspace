@@ -6,10 +6,12 @@
 class SpaceStation 
 {
 public:
+  SpaceStation();
+  SpaceStation(int tech);
   void restock();
-  void displayGoods(int);
+  void displayGoods();
 private:
-  std::vector<Equipment> nShop;
+  std::vector<Weapon> nShop;
   std::vector<Ship> nHanger;
   std::vector<NaturalResource> Commodities;
 };

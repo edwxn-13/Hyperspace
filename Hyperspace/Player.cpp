@@ -3,6 +3,7 @@
 Player::Player() 
 {
   nPlayerShip = Ship();
+  nInventory.push_back(nPlayerShip.mHardpoints[0]);
   alive = true;
   nBankAccount = 15000;
   XP = 0;
@@ -39,9 +40,20 @@ void Player::setSector(Sector newSector)
   CurrentSector = newSector;
 }
 
+void Player::displayStats()
+{
+  CurrentSector.display();
+  std::cout << "\nCredits: " << nBankAccount <<  "\n" << nPlayerShip.getName() << "  Shields: " << nPlayerShip.getShields() << "  Armour: " << nPlayerShip.getArmour() << "\n";
+}
+
 Ship Player::getShip()
 {
   return nPlayerShip;
+}
+
+void Player::setShip(Ship newShip)
+{
+  nPlayerShip = newShip;
 }
 
 void Player::Equip(int newVal)

@@ -28,7 +28,9 @@ public:
   int getBalance(); // Returns the players credit balance
   void setBalance(int); // Sets new balance.
   void setSector(Sector);
+  void displayStats();
   Ship getShip();
+  void setShip(Ship);
   void Equip(int); // Equips a new item from the inventory.
   void LevelUp(); // Increases players level.
   void XPCheck(); // Checks if player can increace in level.

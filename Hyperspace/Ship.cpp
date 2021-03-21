@@ -16,10 +16,24 @@ bool Ship::hasShields()
 
 Ship::Ship()
 {
-  mHardpoints.push_back(Weapon());
+  mHardpoints.push_back(Weapon("Triton Light Laser", 40, 10 , 90, 1));
   oFuel = 1000;
   oShields = 100;
   oArmour = 100;
+  fuel = oFuel;
+  mShields = oShields;
+  mArmour = oArmour;
+  nSystems.push_back(ShipSystem("Thrusters"));
+  nSystems.push_back(ShipSystem("Shield Emitter"));
+  nSystems.push_back(ShipSystem("Weapons"));
+}
+
+Ship::Ship(std::string name, int shields, int armour, int fuel, int price)
+{
+  nPrice = price;
+  oFuel = fuel;
+  oShields = shields;
+  oArmour = armour;
   fuel = oFuel;
   mShields = oShields;
   mArmour = oArmour;
@@ -42,7 +56,19 @@ Ship::Ship(int threat)
   nSystems.push_back(ShipSystem("Weapons"));
 }
 
-void Ship::setShields(int newVal) 
+void Ship::makeShields(int newVal)
+{
+  mShields = newVal;
+  oShields = newVal;
+}
+
+void Ship::makeArmour(int newVal)
+{
+  mShields = newVal;
+  oShields = newVal;
+}
+
+void Ship::setShields(int newVal)
 {
   mShields = mShields - newVal;
 }
@@ -53,9 +79,52 @@ void Ship::setArmour(int newVal)
   mArmour = mArmour - newVal;
 }
 
+void Ship::damageShip(int dmgVal)
+{
+  if (!hasShields()) 
+  {
+    setArmour(dmgVal);
+    std::cout << "\n<<" << dmgVal << " damage dealt>>";
+  }
+
+  else 
+  {
+    setShields(dmgVal);
+    std::cout << "\n<<" << dmgVal << " shield damage>>";
+
+  }
+}
+
+void Ship::damageSystem(int dmgVal, int systemInt)
+{
+  if (!hasShields())
+  {
+    setArmour(dmgVal / 10);
+    nSystems[systemInt - 1].integrity = nSystems[systemInt - 1].integrity - dmgVal / 5;
+    std::cout << "\n<<" << dmgVal/5 << " system damage>>";
+    std::cout << "\n<<" << dmgVal/10 << " armour damage>>";
+  }
+
+  else
+  {
+    setShields(dmgVal);
+    std::cout << "\n<<" << dmgVal << " shield damage>>";
+  }
+}
+
+void Ship::setName(std::string newVal)
+{
+  mShipName = newVal;
+}
+
 int Ship::getArmour()
 {
     return mArmour;
+}
+
+int Ship::getPrice()
+{
+  return nPrice;
 }
 
 int Ship::getShields()

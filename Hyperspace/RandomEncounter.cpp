@@ -6,11 +6,8 @@ RandomEncounter::RandomEncounter(int threatVal)
 
 GamePackage RandomEncounter::CombatInit(GamePackage gamePackage) 
 {
-  for (int i = 0; i < rand() % 5; i++)
-  {
-    nEnemyContainer.push_back(Enemy(threat));
-  }
-
+  nEnemyContainer.push_back(Enemy(threat));
+  
   while (nEnemyContainer.size() != 0) 
   {
     gamePackage = Combat(gamePackage);
@@ -22,14 +19,12 @@ GamePackage RandomEncounter::CombatInit(GamePackage gamePackage)
 GamePackage RandomEncounter::Combat(GamePackage gamePackage)
 {
   bool encounterStatus = true;
+  Ship eTarget = nEnemyContainer[0].getShip();
+
   while (encounterStatus) 
   {
     DisplayTargets();
-    int pTargetChoice;
-    std::cout << "\n<<Select Enemy Target>>\n";
-    std::cin >> pTargetChoice;
-
-    Enemy eTarget = nEnemyContainer[pTargetChoice - 1];
+    gamePackage.nUser.displayStats();
 
     int pWeaponChoice;
     std::cout << "\n<<Select Weapon>>\n";
@@ -40,49 +35,27 @@ GamePackage RandomEncounter::Combat(GamePackage gamePackage)
     std::cin >> pSystemChoice;
 
     Weapon chosenWeapon = gamePackage.nUser.getInventroy(pWeaponChoice - 1);
-    if (!eTarget.getShip().hasShields()) {
-      if (pSystemChoice < 5 && pSystemChoice < 0)
-      {
-        int damage = chosenWeapon.useEquipment();
-        eTarget.getShip().nSystems[pSystemChoice - 1].integrity = eTarget.getShip().nSystems[pSystemChoice - 1].integrity - damage;
-        std::cout << "\n<<"<< damage <<" Damge Delt To Enemy>>\n";
-      }
-      else 
-      {
-        for (int i = 0; i < eTarget.getShip().nSystems.size(); i++) 
-        {
-          int damage = chosenWeapon.useEquipment();
-          eTarget.getShip().nSystems[i].integrity = eTarget.getShip().nSystems[i].integrity - (damage/10);
-          std::cout << "\n<<" << damage << " Damge Delt To Enemy>>\n";
-        }
+    if (pSystemChoice > 3) {eTarget.damageShip(chosenWeapon.useEquipment());}
+    else { eTarget.damageSystem(chosenWeapon.useEquipment(), pSystemChoice); }
 
-        eTarget.getShip().setArmour(chosenWeapon.useEquipment());
-      }
-    }
-    else 
+    nEnemyContainer[0].setShip(eTarget);
+    if (eTarget.getArmour() < 1) 
     {
-      eTarget.getShip().setShields(chosenWeapon.useEquipment());
-    }
-
-    nEnemyContainer[pTargetChoice - 1] = eTarget;
-
-    if (eTarget.getShip().getArmour() < 1) 
-    {
-      std::cout << "<<Enemy " << eTarget.getShip().getName() << " has been destroyed>>";
-      eTarget.~Enemy();
-      nEnemyContainer[pTargetChoice - 1].~Enemy();
-      nEnemyContainer.erase(nEnemyContainer.begin() + pTargetChoice - 1);
+      std::cout << "\n\n<<Enemy " << eTarget.getName() << " has been destroyed>>\n";
+      nEnemyContainer[0].~Enemy();
+      nEnemyContainer.erase(nEnemyContainer.begin());
       return gamePackage;
     }
     else 
     {
-      if (eTarget.retreat()) 
+      if (nEnemyContainer[0].retreat())
       {
+        nEnemyContainer[0].~Enemy();
+        nEnemyContainer.erase(nEnemyContainer.begin());
         return gamePackage;
       }
-      eTarget.attack(gamePackage);
     }
-    
+    gamePackage.nUser = nEnemyContainer[0].attack(gamePackage);
   }
 
   return gamePackage;

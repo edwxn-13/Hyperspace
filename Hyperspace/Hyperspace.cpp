@@ -59,8 +59,8 @@ void GameLoop(GamePackage gamePackage)
    */
   while (gamePackage.nUser.alive) 
   {
-    DisplayMenu(gamePackage);
-    InitEncoutner(gamePackage);
+    gamePackage.nUser = DisplayMenu(gamePackage);
+    gamePackage = InitEncoutner(gamePackage);
     gamePackage.nGameWorld.update(gamePackage.nGameWorld);
   }
 }

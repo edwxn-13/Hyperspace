@@ -8,6 +8,7 @@ public:
   void enQueue(Sector);
   Sector deQueue();
   int size();
+  bool contains(Sector);
 private:
   int pointer;
   std::vector<Sector> queueList;

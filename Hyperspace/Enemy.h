@@ -16,6 +16,7 @@ public:
   Enemy(int);
   Player attack(GamePackage);
   Ship getShip();
+  void setShip(Ship);
   bool retreat();
   void displayStats();
 };
