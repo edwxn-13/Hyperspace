@@ -45,12 +45,12 @@ Player DisplayMenu(GamePackage gamePackage)
     gamePackage.nUser.setSector(JumpDrive(gamePackage));
     break;
   case 2:
-    ViewInventory(gamePackage);
+    gamePackage.nUser = ViewInventory(gamePackage.nUser);
     break;
   case 3:
     break;
   case 4:
-    ViewStation(gamePackage);
+    gamePackage.nUser = ViewStation(gamePackage.nUser);
     break;
   case 5:
     ViewPlanet(gamePackage);
@@ -60,14 +60,18 @@ Player DisplayMenu(GamePackage gamePackage)
   return gamePackage.nUser;
 }
 
-void ViewInventory(GamePackage gamePacakge) 
+Player ViewInventory(Player user) 
 {
-  for (int i = 0; i < gamePacakge.nUser.getShip().mHardpoints.size(); i++) 
+  int inputValue;
+  for (int i = 0; i < user.getShip().mHardpoints.size(); i++) 
   {
-    std::cout << "\n" << gamePacakge.nUser.getShip().mHardpoints[i].getName();
+    std::cout << "\n"<< i + 1 << ". " << user.getCargo(i).getName();
   }
-  
-  DisplayMenu(gamePacakge);
+  std::cout << "\n\n Select Item: ";
+  std::cin >> inputValue;
+  std::cout << "\n";
+  user = ItemSettings(inputValue, user);
+  return user;
 }
 
 void ViewPlanet(GamePackage gamePackage) 
@@ -77,7 +81,7 @@ void ViewPlanet(GamePackage gamePackage)
   DisplayMenu(gamePackage);
 }
 
-void ViewStation(GamePackage gamePackage)
+Player ViewStation(Player user)
 {
   int inputValue;
   std::cout << "\n1.View Store: \n2.View Inventroy: \n3.View Objectives: \n4.View Galactic News: \n";
@@ -94,7 +98,8 @@ void ViewStation(GamePackage gamePackage)
     default:
       break;
     case 1:
-      gamePackage.nUser.CurrentSector.getStation().displayGoods();
+      user.CurrentSector.getStation().displayGoods();
+      user = user.CurrentSector.getStation().market(user);
       break;
     case 2:
       break;
@@ -105,13 +110,14 @@ void ViewStation(GamePackage gamePackage)
     case 5:
       break;
     }
-  DisplayMenu(gamePackage);
+
+  return user;
 }
 
-void ItemSettings(int type, Player user) 
+Player ItemSettings(int type, Player user) 
 {
   int inputValue;
-  std::cout << "\n1.View Store: \n2.View Inventroy: \n3.View Objectives: \n4.View Galactic News: \n";
+  std::cout << "\n1.Discard: \n2.Sell: \n3.View Stats: \n";
   do
   {
     std::cout << "Select Option: ";
@@ -125,16 +131,17 @@ void ItemSettings(int type, Player user)
   default:
     break;
   case 1:
+    user.discard(inputValue);
     break;
   case 2:
+    user.sell(inputValue);
     break;
   case 3:
-    break;
-  case 4:
-    break;
-  case 5:
+    user.displayStats(inputValue);
     break;
   }
+
+  return user;
 }
 
 GamePackage InitEncoutner(GamePackage gamePackage) 

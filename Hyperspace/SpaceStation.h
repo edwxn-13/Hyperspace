@@ -12,7 +12,7 @@ public:
   SpaceStation();
   SpaceStation(int tech);
   void restock();
-  void market(Player user);
+  Player market(Player user);
   void displayGoods();
 private:
   std::vector<Weapon> nShop;

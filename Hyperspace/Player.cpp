@@ -25,6 +25,11 @@ Weapon Player::getInventroy(int index)
   return nPlayerShip.mHardpoints[index];
 }
 
+Weapon Player::getCargo(int index)
+{
+  return nInventory[index];
+}
+
 int Player::getBalance() 
 {
   return nBankAccount;
@@ -44,6 +49,11 @@ void Player::displayStats()
 {
   CurrentSector.display();
   std::cout << "\nCredits: " << nBankAccount <<  "\n" << nPlayerShip.getName() << "  Shields: " << nPlayerShip.getShields() << "  Armour: " << nPlayerShip.getArmour() << "\n";
+}
+
+void Player::displayStats(int input)
+{
+  std::cout << nInventory[input - 1].getName() << " Price: " << nInventory[input - 1].getPrice() << " Damage: " << nInventory[input - 1].getDamage() << "\n";
 }
 
 void Player::purchase(Weapon newWeapon)
@@ -74,6 +84,23 @@ void Player::purchase(Ship newShip)
   {
     std::cout << "\n<<Insufficient Funds>>\n";
   }
+}
+
+void Player::sell(int input)
+{
+  if (CurrentSector.hasPlanet()) 
+  {
+    nBankAccount = nBankAccount + nInventory[input - 1].getPrice();
+    std::cout << "\n\n<Sold for " << nInventory[input - 1].getPrice() << ">>\n";
+    nInventory.erase(nInventory.begin() + input - 1);
+  }
+
+  else { std::cout << "\n\n<<No Nearby Station>>\n"; }
+}
+
+void Player::discard(int input)
+{
+  nInventory.erase(nInventory.begin() + input - 1);
 }
 
 Ship Player::getShip()

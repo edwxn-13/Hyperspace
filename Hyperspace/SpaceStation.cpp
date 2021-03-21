@@ -43,7 +43,7 @@ SpaceStation::SpaceStation(int tech)
   }
 }
 
-void SpaceStation::market(Player user)
+Player SpaceStation::market(Player user)
 {
   int input;
   std::cin >> input;
@@ -56,6 +56,8 @@ void SpaceStation::market(Player user)
   {
     user.purchase(nHanger[input - nShop.size() - 1]);
   }
+
+  return user;
 }
 
 void SpaceStation::displayGoods()
@@ -63,11 +65,11 @@ void SpaceStation::displayGoods()
   std::cout << "\nWeapons: \n\n";
   for (int i = 0; i < nShop.size(); i++) 
   {
-    std::cout << i << ". "<< nShop[i].getName() << " Price: " << nShop[i].getPrice() << " Damage: " << nShop[i].getDamage() << "\n";
+    std::cout << i + 1 << ". "<< nShop[i].getName() << " Price: " << nShop[i].getPrice() << " Damage: " << nShop[i].getDamage() << "\n";
   }
   std::cout << "\nShips: \n\n";
   for (int i = 0; i < nHanger.size(); i++)
   {
-    std::cout << i+nShop.size() << ". " << nHanger[i].getName() << " Price: " << nHanger[i].getPrice() << " Shields: " << nHanger[i].getShields() << " Armour: " << nHanger[i].getArmour() << "\n";
+    std::cout << i+nShop.size()+1 << ". " << nHanger[i].getName() << " Price: " << nHanger[i].getPrice() << " Shields: " << nHanger[i].getShields() << " Armour: " << nHanger[i].getArmour() << "\n";
   }
 }

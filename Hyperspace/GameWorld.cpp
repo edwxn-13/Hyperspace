@@ -333,7 +333,7 @@ bool GameWorld::CheckDuplicates(Sector rootNode, Sector childNode)
 
   for(int i = 0; i < rootNode.nList.size(); i++)
   {
-    if(rootNode.getHash() == childNode.getHash())
+    if(rootNode.nList[i].getHash() == childNode.getHash())
     {
       return true;
     }

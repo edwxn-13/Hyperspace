@@ -19,17 +19,21 @@ private:
   int nBankAccount; // Players Credit Balance.
   int nPlayerLevel, XP;
   Ship nPlayerShip; // The player's ship
-  std::vector<Equipment> nInventory; // Contains all of the users equipment.
+  std::vector<Weapon> nInventory; // Contains all of the users equipment.
 public:
   Player(); // Default player constructor, sets initial values.
   std::string getName(); // Returns players name.
   void setName(std::string); // Sets a new name for the player.
   Weapon getInventroy(int);
+  Weapon getCargo(int index);
   int getBalance(); // Returns the players credit balance
   void setBalance(int); // Sets new balance.
   void setSector(Sector);
   void displayStats();
+  void displayStats(int);
   void purchase(Ship);
+  void sell(int);
+  void discard(int);
   void purchase(Weapon);
 
   Ship getShip();

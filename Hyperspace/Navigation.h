@@ -19,8 +19,8 @@ HQueue FindRoute(Sector currentNode, Sector destination , HQueue route);
 int CalculateDistance(Sector, Sector);
 GamePackage InitEncoutner(GamePackage gamePackage);
 void ViewPlanet(GamePackage gamePackage);
-void ViewInventory(GamePackage gamePacakge);
-void ItemSettings(int type , Player user);
-void ViewStation(GamePackage gamePackage);
+Player ViewInventory(Player user);
+Player ItemSettings(int type , Player user);
+Player ViewStation(Player user);
 
 
