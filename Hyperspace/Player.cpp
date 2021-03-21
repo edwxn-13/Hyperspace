@@ -2,6 +2,7 @@
 
 Player::Player() 
 {
+  nPlayerShip = Ship();
   alive = true;
   nBankAccount = 15000;
   XP = 0;

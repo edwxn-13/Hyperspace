@@ -7,6 +7,7 @@
 class GameWorld;
 
 struct NeighbourFactionCount {
+  NeighbourFactionCount();
   NeighbourFactionCount(int, int, int, int);
   int f1, f2, f3;
   int popularID;

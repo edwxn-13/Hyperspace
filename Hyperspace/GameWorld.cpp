@@ -173,6 +173,7 @@ NeighbourFactionCount Sector::PopularFaction(std::vector<Sector> enemySectors)
     popFaction = 3;
     return NeighbourFactionCount(f1Count, f2Count, f3Count, popFaction);
   }
+  return NeighbourFactionCount();
 }
 
 //Connects secotrs together by adding it the array. w
@@ -393,4 +394,9 @@ NeighbourFactionCount::NeighbourFactionCount(int f1Val, int f2Val, int f3Val, in
   f2 = f2Val;
   f3 = f3Val;
   popularID = popVal;
+}
+
+NeighbourFactionCount::NeighbourFactionCount()
+{
+  
 }

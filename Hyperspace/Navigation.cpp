@@ -1,5 +1,8 @@
 
 #include "Navigation.h"
+#include <iostream>
+#include <math.h>
+
 /*
  Contains scripts used for navigating from
  planet to planet and system to system.

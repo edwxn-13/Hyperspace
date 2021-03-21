@@ -1,6 +1,7 @@
 #include "Faction.h"
-
-Faction::Faction() 
+#include <iostream>
+#include <math.h>
+Faction::Faction()
 {
   nStorage.push_back(10000);
   nStorage.push_back(2000);

@@ -16,10 +16,21 @@ bool Ship::hasShields()
 
 Ship::Ship()
 {
+  mHardpoints.push_back(Weapon());
+  oFuel = 1000;
+  oShields = 100;
+  oArmour = 100;
+  fuel = oFuel;
+  mShields = oShields;
+  mArmour = oArmour;
+  nSystems.push_back(ShipSystem("Thrusters"));
+  nSystems.push_back(ShipSystem("Shield Emitter"));
+  nSystems.push_back(ShipSystem("Weapons"));
 }
 
 Ship::Ship(int threat)
 {
+  mHardpoints.push_back(Weapon());
   oFuel = 1000;
   oShields = 100;
   oArmour = 100;
