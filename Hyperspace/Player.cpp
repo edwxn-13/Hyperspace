@@ -55,7 +55,9 @@ void Player::displayStats(int input)
 {
   std::cout << nInventory[input - 1].getName() << " Price: " << nInventory[input - 1].getPrice() << " Damage: " << nInventory[input - 1].getDamage() << "\n";
 }
-
+/*
+ Player buys item selected by user from station;
+ */
 void Player::purchase(Weapon newWeapon)
 {
   if (nBankAccount > newWeapon.getPrice())
@@ -86,6 +88,9 @@ void Player::purchase(Ship newShip)
   }
 }
 
+/*
+ Sells item selected by player
+ */
 void Player::sell(int input)
 {
   if (CurrentSector.hasPlanet()) 
@@ -112,7 +117,9 @@ void Player::setShip(Ship newShip)
 {
   nPlayerShip = newShip;
 }
-
+/*
+ Equips selected Itemn
+ */
 void Player::Equip(int newVal)
 {
   

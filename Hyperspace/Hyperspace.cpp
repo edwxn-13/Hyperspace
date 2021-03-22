@@ -2,7 +2,6 @@
 
 GamePackage InitGame()
 {
-  
   Player userPlayer;
   std::string playerName;
   
@@ -22,7 +21,9 @@ GamePackage InitGame()
 
   return package;
 }
-
+/*
+ Initiates it 
+ */
 Faction::FContainer FactionInit(NaturalResource::RContainer rContainer) 
 {
   Faction::FContainer fContainer;

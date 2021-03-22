@@ -9,7 +9,9 @@
  
  Also triggers encounter logic.
  */
-
+/*/
+ Displays the main menu where the user can acces the various parts of the game.
+ */
 Player DisplayMenu(GamePackage gamePackage)
 {
   int inputValue;
@@ -59,7 +61,10 @@ Player DisplayMenu(GamePackage gamePackage)
 
   return gamePackage.nUser;
 }
-
+/*
+ Displays the contents of the users inventroy allowing them to
+ edit the state of them
+ */
 Player ViewInventory(Player user) 
 {
   int inputValue;
@@ -74,6 +79,9 @@ Player ViewInventory(Player user)
   return user;
 }
 
+/*/
+ Display the details of the planet such as radius name and tech level
+ */
 void ViewPlanet(GamePackage gamePackage) 
 {
   std::cout << "\n\n Planet Details \n Name : " << gamePackage.nUser.CurrentSector.getPlanet().getName();
@@ -81,6 +89,10 @@ void ViewPlanet(GamePackage gamePackage)
   DisplayMenu(gamePackage);
 }
 
+/*
+ Allows the user to access the station's utilities such as
+ the news and the shop
+ */
 Player ViewStation(Player user)
 {
   int inputValue;
@@ -113,7 +125,9 @@ Player ViewStation(Player user)
 
   return user;
 }
-
+/*/
+ Allows the user to delete, sell or equip a selected item
+ */
 Player ItemSettings(int type, Player user) 
 {
   int inputValue;
@@ -143,6 +157,9 @@ Player ItemSettings(int type, Player user)
 
   return user;
 }
+/*
+ Starts enemy encounter and enters user into combat interface
+ */
 
 GamePackage InitEncoutner(GamePackage gamePackage) 
 {
@@ -163,7 +180,9 @@ void DisplayMap(GamePackage gamePackage)
   }
 }
 
-
+/*
+ Finds the sector specified by the player using the hash
+ */
 Sector sectorSearch(GamePackage gamePackage)
 {
   while (true) 
@@ -191,7 +210,10 @@ Sector sectorSearch(GamePackage gamePackage)
     std::cout << "\n<<Invalid Coordinates>>\n";
   }
 }
-
+/*
+ Activates the travel system
+ Displays the route the player travels
+ */
 Sector JumpDrive(GamePackage gamePackage)
 {
   Sector destination = sectorSearch(gamePackage);
@@ -215,7 +237,9 @@ Sector JumpDrive(GamePackage gamePackage)
   destination.display();
   return destination;
 }
-
+/*
+ Searches the graph for the user selected sector
+ */
 HQueue FindRoute(Sector currentNode, Sector destination , HQueue route)
 { 
   currentNode.toggleVisited();
@@ -248,6 +272,10 @@ HQueue FindRoute(Sector currentNode, Sector destination , HQueue route)
   FindRoute(closestNode, destination, route);
   return route;
 }
+
+/*
+ Returns distance between 2 sectors
+ */
 int CalculateDistance(Sector Node1, Sector Node2)
 {
   return sqrt(pow((Node1.xVal - Node2.xVal), 2) + pow((Node1.yVal - Node2.yVal), 2));

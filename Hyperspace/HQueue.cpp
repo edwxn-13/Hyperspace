@@ -16,7 +16,9 @@ Sector HQueue::deQueue()
   pointer++;
   return returnSec;
 }
-
+/*
+ Returns size of queue
+ */
 int HQueue::size()
 {
   return queueList.size() - pointer;

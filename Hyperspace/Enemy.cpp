@@ -43,7 +43,9 @@ void Enemy::setShip(Ship newShip)
 {
   mShip = newShip;
 }
-
+/*
+ Decides if the enemy should retreat from the combat
+ */
 bool Enemy::retreat()
 {
   if (mShip.nSystems[0].integrity < 1) 
@@ -71,7 +73,9 @@ bool Enemy::retreat()
     else {return false;}
   }
 }
-
+/*
+ Enemy armour and shields are displayed
+ */
 void Enemy::displayStats()
 {
   std::cout << "\n" << mShip.getName() << "  Shields: " << mShip.getShields() << "  Armour: " << mShip.getArmour() << "\n";

@@ -160,7 +160,6 @@ NeighbourFactionCount Sector::PopularFaction(std::vector<Sector> enemySectors)
   int f1Count = 0;
   int f2Count = 0;
   int f3Count = 0;
-  
   for(int i = 0; i < enemySectors.size(); i++) 
   {
     if (enemySectors[i].nFactionID == 1) { f1Count++; }

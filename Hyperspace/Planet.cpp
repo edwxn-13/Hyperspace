@@ -26,7 +26,9 @@ void Planet::setName(std::string newName)
 {
   nName = newName;
 }
-
+/*
+ Displays Planet Info
+ */
 void Planet::displayStats()
 {
   std::cout << "\nRadius: " << radius << "\nTech Level: " << nTechLevel << "\nThreat Level: " << nThreatLevel << "\n\n";
