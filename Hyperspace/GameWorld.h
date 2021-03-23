@@ -3,6 +3,7 @@
 #include "Planet.h"
 #include <string>
 #include "SpaceStation.h"
+#include "Faction.h"
 // Make it a graph to secure these marks bout this paper
 class GameWorld;
 
@@ -55,6 +56,8 @@ public:
   Sector nMainNode;
   int nSize;
   int nGenNum;
+  Faction::FContainer gameFactions;
+  NaturalResource::RContainer nWorldResources;
   bool CheckDuplicates(Sector,Sector);
   std::vector<Sector> SortList(std::vector<Sector>);
   void Generate(int);

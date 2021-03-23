@@ -27,12 +27,15 @@ GamePackage RandomEncounter::Combat(GamePackage gamePackage)
     gamePackage.nUser.displayStats();
 
     int pWeaponChoice;
-    std::cout << "\n<<Select Weapon>>\n";
-    std::cin >> pWeaponChoice;
+    do
+    {
+      std::cout << "\n<<Select Weapon>>\n";
+      pWeaponChoice = integerInput();
+    } while (pWeaponChoice < 1 && pWeaponChoice > gamePackage.nUser.getShip().mHardpoints.size());
 
     int pSystemChoice;
     std::cout << "\n<<Select System To Target>>\n";
-    std::cin >> pSystemChoice;
+    pSystemChoice = integerInput();
 
     Weapon chosenWeapon = gamePackage.nUser.getInventroy(pWeaponChoice - 1);
     if (pSystemChoice > 3) {eTarget.damageShip(chosenWeapon.useEquipment());}
@@ -67,6 +70,21 @@ void RandomEncounter::DisplayTargets()
   for (int i = 0; i < nEnemyContainer.size(); i++) 
   {
     nEnemyContainer[i].displayStats();
+  }
+}
+
+int RandomEncounter::integerInput()
+{
+  int inputValue;
+  for (;;) {
+    if (std::cin >> inputValue) {
+      return inputValue;
+    }
+    else {
+      std::cout << "Please enter a valid integer\n";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
   }
 }
 

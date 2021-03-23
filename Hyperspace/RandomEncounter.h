@@ -12,6 +12,7 @@ public:
 private:
   int threat;
   std::vector<Enemy> nEnemyContainer;
+  int integerInput();
 
 };
 

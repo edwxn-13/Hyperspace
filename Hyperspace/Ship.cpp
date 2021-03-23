@@ -17,6 +17,10 @@ bool Ship::hasShields()
 Ship::Ship()
 {
   mHardpoints.push_back(Weapon("Triton Light Laser", 40, 10 , 90, 1));
+  for (int i = 0; i < 5; i++) 
+  {
+    mHardpoints.push_back(Weapon("Empty Slot", 0, 0, 0, 0));
+  }
   oFuel = 1000;
   oShields = 100;
   oArmour = 100;

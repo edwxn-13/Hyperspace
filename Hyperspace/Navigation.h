@@ -9,7 +9,6 @@
 #include "GamePackage.h"
 #include "RandomEncounter.h"
 #include "HQueue.h"
-#include "Faction.h"
 
 void DisplayMap(GamePackage gamePackage); //Displays GameWorld class visually
 Sector JumpDrive(GamePackage gamePackage);// Transports the player to a new sector
@@ -22,5 +21,5 @@ void ViewPlanet(GamePackage gamePackage);
 Player ViewInventory(Player user);
 Player ItemSettings(int type , Player user);
 Player ViewStation(Player user);
-
+int integerInput();
 

@@ -45,6 +45,8 @@ Player DisplayMenu(GamePackage gamePackage)
     break;
   case 1:
     gamePackage.nUser.setSector(JumpDrive(gamePackage));
+    gamePackage = InitEncoutner(gamePackage);
+    gamePackage.nGameWorld.update(gamePackage.nGameWorld);
     break;
   case 2:
     gamePackage.nUser = ViewInventory(gamePackage.nUser);
@@ -68,12 +70,12 @@ Player DisplayMenu(GamePackage gamePackage)
 Player ViewInventory(Player user) 
 {
   int inputValue;
-  for (int i = 0; i < user.getShip().mHardpoints.size(); i++) 
+  for (int i = 0; i < user.getInventroy().size(); i++) 
   {
     std::cout << "\n"<< i + 1 << ". " << user.getCargo(i).getName();
   }
   std::cout << "\n\n Select Item: ";
-  std::cin >> inputValue;
+  inputValue = integerInput();
   std::cout << "\n";
   user = ItemSettings(inputValue, user);
   return user;
@@ -100,11 +102,11 @@ Player ViewStation(Player user)
   do
   {
     std::cout << "Select Option: ";
-
-    std::cin >> inputValue;
+    inputValue = integerInput();
     std::cout << "\n";
-  } while (inputValue > 5 && inputValue < 1);
-  
+  } 
+  while (inputValue > 4 && inputValue < 1);
+
   switch (inputValue)
     {
     default:
@@ -114,6 +116,7 @@ Player ViewStation(Player user)
       user = user.CurrentSector.getStation().market(user);
       break;
     case 2:
+      user = ViewInventory(user);
       break;
     case 3:
       break;
@@ -125,18 +128,31 @@ Player ViewStation(Player user)
 
   return user;
 }
+int integerInput()
+{
+  int inputValue;
+  for (;;) {
+    if (std::cin >> inputValue) {
+      return inputValue;
+    }
+    else {
+      std::cout << "Please enter a valid integer\n";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+  }
+}
 /*/
  Allows the user to delete, sell or equip a selected item
  */
 Player ItemSettings(int type, Player user) 
 {
   int inputValue;
-  std::cout << "\n1.Discard: \n2.Sell: \n3.View Stats: \n";
+  std::cout << "\n1.Equip: \n2.Sell: \n3.View Stats: \n";
   do
   {
     std::cout << "Select Option: ";
-
-    std::cin >> inputValue;
+    inputValue = integerInput();
     std::cout << "\n";
   } while (inputValue > 5 && inputValue < 1);
 
@@ -145,13 +161,13 @@ Player ItemSettings(int type, Player user)
   default:
     break;
   case 1:
-    user.discard(inputValue);
+    user.toggleEquip(type);
     break;
   case 2:
-    user.sell(inputValue);
+    user.sell(type);
     break;
   case 3:
-    user.displayStats(inputValue);
+    user.displayStats(type);
     break;
   }
 
@@ -190,10 +206,10 @@ Sector sectorSearch(GamePackage gamePackage)
     std::cout << "<<Select Your Destination >>\n";
     int x, y;
     std::cout << "<<X>> :";
-    std::cin >> x;
+    x = integerInput();
     std::cout << "<<Y>> :";
-    std::cin >> y;
-
+    y = integerInput();
+    
     int hash = x * y;
 
     std::cout << "\n<<Searching Coordinates>>\n";
@@ -233,7 +249,7 @@ Sector JumpDrive(GamePackage gamePackage)
     else { break; }
   }
 
-  std::cout << "\n\n<<You have arrived at your destination>>\n";
+  std::cout << "\n\n<<You have arrived at your destination>>\n\n\n";
   destination.display();
   return destination;
 }

@@ -25,6 +25,7 @@ public:
   std::string getName(); // Returns players name.
   void setName(std::string); // Sets a new name for the player.
   Weapon getInventroy(int);
+  std::vector<Weapon> getInventroy();
   Weapon getCargo(int index);
   int getBalance(); // Returns the players credit balance
   void setBalance(int); // Sets new balance.
@@ -33,6 +34,7 @@ public:
   void displayStats(int);
   void purchase(Ship);
   void sell(int);
+  void toggleEquip(int);
   void discard(int);
   void purchase(Weapon);
 

@@ -1,6 +1,7 @@
 #include "Faction.h"
 #include <iostream>
 #include <math.h>
+#include "GameWorld.h"
 Faction::Faction()
 {
   nStorage.push_back(10000);
@@ -10,9 +11,10 @@ Faction::Faction()
   nCapital = 100000;
 }
 
-Faction::Faction(NaturalResource::RContainer rContainer , int type)
+Faction::Faction(std::string name , NaturalResource::RContainer rContainer , int type)
 {
   srand(time(0));
+  nName = name;
   nStorage.push_back(1000 * rand() % 10);
   nStorage.push_back(200 * rand() % 10);
   nStorage.push_back(10 * rand() % 10);

@@ -78,5 +78,12 @@ bool Enemy::retreat()
  */
 void Enemy::displayStats()
 {
+  std::cout << "\n";
+
+  for (int i = 0; i < mShip.nSystems.size(); i++)
+  {
+    std::cout << i + 1 << ". " << mShip.nSystems[i].nName << " integrity" << ": " << mShip.nSystems[i].integrity << " - ";
+  }
+  std::cout << "\n";
   std::cout << "\n" << mShip.getName() << "  Shields: " << mShip.getShields() << "  Armour: " << mShip.getArmour() << "\n";
 }

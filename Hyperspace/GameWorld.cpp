@@ -136,7 +136,7 @@ void Sector::checkNeigbours(GameWorld world)
   {
     liberate();
   }
-}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                              }
 
 int Sector::getThreat()
 {
@@ -247,6 +247,13 @@ GameWorld::GameWorld()
 
 GameWorld::GameWorld(int sizeVal)
 {
+  nWorldResources.nResourceList.push_back(NaturalResource(100000, 0, 0.9, 1.62, 2000, 10));
+  nWorldResources.nResourceList.push_back(NaturalResource(100000, 1, 0.45, 1.3, 1000, 20));
+  nWorldResources.nResourceList.push_back(NaturalResource(50000, 2, 0.1, 1.01, 200, 95));
+
+  gameFactions.nFactionList.push_back(Faction("The Mesaron Commonwealth", nWorldResources, 2));
+  gameFactions.nFactionList.push_back(Faction("The Federation", nWorldResources, 1));
+  gameFactions.nFactionList.push_back(Faction("The Free Nations of Kaytions", nWorldResources, 0));
   nSize = sizeVal;
   nGenNum = 0;
 }
@@ -356,7 +363,7 @@ void GameWorld::Generate(int index)
     return;
   }
 
-  for (int i = 0; i < rand() % nSize; i++) 
+  for (int i = 0; i < nSize - (rand() % nSize - 1); i++) 
   {
     int randSectorIndex;
     do 
@@ -403,7 +410,6 @@ void GameWorld::Generate(int index)
  */
 void GameWorld::update(GameWorld world)
 {
-  
   for(int i = 1; i < nSize-1; i++)
   {
     UniverseList[i].checkNeigbours(world);

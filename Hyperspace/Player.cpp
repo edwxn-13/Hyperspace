@@ -25,6 +25,11 @@ Weapon Player::getInventroy(int index)
   return nPlayerShip.mHardpoints[index];
 }
 
+std::vector<Weapon> Player::getInventroy()
+{
+  return nInventory;
+}
+
 Weapon Player::getCargo(int index)
 {
   return nInventory[index];
@@ -48,7 +53,25 @@ void Player::setSector(Sector newSector)
 void Player::displayStats()
 {
   CurrentSector.display();
-  std::cout << "\nCredits: " << nBankAccount <<  "\n" << nPlayerShip.getName() << "  Shields: " << nPlayerShip.getShields() << "  Armour: " << nPlayerShip.getArmour() << "\n";
+  std::cout << "\n";
+
+  std::cout << "\nCredits: " << nBankAccount << "\n" << nPlayerShip.getName()
+    << "  Shields: " << nPlayerShip.getShields() << "  Armour: " << nPlayerShip.getArmour() << "\n";
+  std::cout << "\n";
+  std::cout << "<<Systems>>\n";
+  for (int i = 0; i < nPlayerShip.nSystems.size(); i++)
+  {
+    std::cout << i + 1 << ". " << nPlayerShip.nSystems[i].nName << " integrity"<< ": " << nPlayerShip.nSystems[i].integrity << " - ";
+  }
+  std::cout << "<<Weapons>>\n";
+  std::cout << "\n";
+  for (int i = 0; i < nPlayerShip.mHardpoints.size(); i++) 
+  {
+    std::cout << i + 1 << ". " << nPlayerShip.mHardpoints[i].getName() << " - ";
+  }
+
+
+  
 }
 
 void Player::displayStats(int input)
@@ -101,6 +124,23 @@ void Player::sell(int input)
   }
 
   else { std::cout << "\n\n<<No Nearby Station>>\n"; }
+}
+
+void Player::toggleEquip(int index)
+{
+  if (nInventory[index - 1].getState()) 
+  {
+    nPlayerShip.mHardpoints[nInventory[index - 1].getPos()].empty();
+    nInventory[index - 1].toggleEquip();
+    std::cout << "\n<<Succesfully Unequipped Weapon>>\n";
+  }
+
+  else 
+  { 
+    nPlayerShip.mHardpoints[index - 1] = nInventory[index - 1];
+    nInventory[index - 1].toggleEquip();
+    std::cout << "\n<<Succesfully Equipped Weapon>>\n";
+  }
 }
 
 void Player::discard(int input)

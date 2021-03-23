@@ -1,8 +1,9 @@
 #pragma once
 #include <iostream>
 #include "NaturalResource.h"
-#include "GameWorld.h"
 #include <time.h>
+class GameWorld;
+class Sector;
 /*
  Defines Faction class
  */
@@ -15,7 +16,7 @@ public:
   };
 
   Faction();
-  Faction(NaturalResource::RContainer rContainer , int type);
+  Faction(std::string name, NaturalResource::RContainer rContainer , int type);
   float getCapital();
   void factionUpdate(FContainer fContainer, NaturalResource::RContainer rContainer);
   void dailySpening(NaturalResource::RContainer rContainer);

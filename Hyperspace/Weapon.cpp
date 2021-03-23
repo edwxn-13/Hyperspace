@@ -40,3 +40,12 @@ int Weapon::getTechLevel()
   return nTechLevel;
 }
 
+void Weapon::empty()
+{
+  nName = "Empty Slot";
+  damage = 0;
+  nVolitility = 0;
+  nPrice = 0;
+  nTechLevel = 0;
+}
+

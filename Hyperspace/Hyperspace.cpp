@@ -11,8 +11,8 @@ GamePackage InitGame()
   std::cout << "Welcome back commander " << playerName << "\n";
   
   std::cout << "\nSelect size: ";
-  int size;
-  std::cin >> size;
+
+  int size = integerInput();
 
   GameWorld gameWorld(size);
   gameWorld.initialize();
@@ -24,8 +24,10 @@ GamePackage InitGame()
 /*
  Initiates it 
  */
+/*
 Faction::FContainer FactionInit(NaturalResource::RContainer rContainer) 
 {
+  
   Faction::FContainer fContainer;
   Faction f1(rContainer, 0);
   Faction f2(rContainer, 1);
@@ -36,7 +38,9 @@ Faction::FContainer FactionInit(NaturalResource::RContainer rContainer)
   fContainer.nFactionList.push_back(f3);
 
   return fContainer;
+  
 }
+*/
 
 Sector Travel(GamePackage gamePackage)
 {
@@ -61,8 +65,6 @@ void GameLoop(GamePackage gamePackage)
   while (gamePackage.nUser.alive) 
   {
     gamePackage.nUser = DisplayMenu(gamePackage);
-    gamePackage = InitEncoutner(gamePackage);
-    gamePackage.nGameWorld.update(gamePackage.nGameWorld);
   }
 }
 

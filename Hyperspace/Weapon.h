@@ -12,6 +12,7 @@ public:
   int getPrice();
   int getDamage();
   int getTechLevel();
+  void empty();
 private:
   std::string nName;
   int damage;
