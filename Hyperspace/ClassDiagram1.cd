@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Enemy">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAEAAACAgAgAAAQAAAAAAAAAACAAAACABAAAAA=</HashCode>
+      <FileName>Enemy.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Equipment">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAIIAAAAAAAgAAAAAAAAAQCAAAYAAABAAACAAAAAAA=</HashCode>
+      <FileName>Equipment.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Faction">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="Faction::FContainer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Faction.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BAAAAgACiAAAAAABABAAABAAAAACIAAAQAAgAAIIAEA=</HashCode>
+      <FileName>Faction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameWorld">
+    <Position X="7.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAQAIAAAABAAAEBAAAAIAAAEgEACAAAAEAEACA=</HashCode>
+      <FileName>GameWorld.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HQueue">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAEAAAAACAAAAAIAAAAAEAAAAAAgAAAAAAAAAQAA=</HashCode>
+      <FileName>HQueue.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NaturalResource">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="NaturalResource::RContainer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>NaturalResource.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ABAQAgIAAAAAAAEAAAAAAAAAAAgEACAAQAAIAAgAAAA=</HashCode>
+      <FileName>NaturalResource.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Planet">
+    <Position X="4" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACABACAAAgAAAABAQAAAAAAAAAABAAAIEAAAQEAA=</HashCode>
+      <FileName>Planet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player">
+    <Position X="2.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwAIAAEAABgAhAwgEAQAAABBABAQABggAgGAQAAAAA=</HashCode>
+      <FileName>Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RandomEncounter">
+    <Position X="9.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAABAEAAAAAACAAAAAAAAAAAAAkAAAABAA=</HashCode>
+      <FileName>RandomEncounter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sector">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AZAAAACUiAghCIIAAAAAABAAgIsBEAAAAAEABACwAQQ=</HashCode>
+      <FileName>GameWorld.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ship">
+    <Position X="11" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIACCgAAAEIgAAEAAAAUIBAABACSAgBBIUQEAAAAABQ=</HashCode>
+      <FileName>Ship.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShipSystem">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABQAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>ShipSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceStation">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAgBAABAQAAAAEAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>SpaceStation.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACAAAAAAAgAEAABAACBACAAAAAAgQAAAEAAAQAAA=</HashCode>
+      <FileName>Weapon.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="GamePackage">
+    <Position X="9.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GamePackage.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="NeighbourFactionCount">
+    <Position X="9.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAQAAAAAAABAAAAAAAAgAAAgA=</HashCode>
+      <FileName>GameWorld.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -21,26 +21,6 @@ GamePackage InitGame()
 
   return package;
 }
-/*
- Initiates it 
- */
-/*
-Faction::FContainer FactionInit(NaturalResource::RContainer rContainer) 
-{
-  
-  Faction::FContainer fContainer;
-  Faction f1(rContainer, 0);
-  Faction f2(rContainer, 1);
-  Faction f3(rContainer, 2);
-
-  fContainer.nFactionList.push_back(f1);
-  fContainer.nFactionList.push_back(f2);
-  fContainer.nFactionList.push_back(f3);
-
-  return fContainer;
-  
-}
-*/
 
 Sector Travel(GamePackage gamePackage)
 {

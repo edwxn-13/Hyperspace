@@ -56,7 +56,7 @@ void Sector::setStation(SpaceStation newStation)
   nLocalStation = newStation;
 }
 
-//Returns the amount of sectors local to itself.
+//Finds the amount of sectors local to itself and updates the faction of the neighbouring factions.
 void Sector::checkNeigbours(GameWorld world)
 {
   //select all sectors in a range
@@ -162,9 +162,9 @@ NeighbourFactionCount Sector::PopularFaction(std::vector<Sector> enemySectors)
   int f3Count = 0;
   for(int i = 0; i < enemySectors.size(); i++) 
   {
-    if (enemySectors[i].nFactionID == 1) { f1Count++; }
+    if (enemySectors[i].nFactionID == 0) { f1Count++; }
     if (enemySectors[i].nFactionID == 1) { f2Count++; }
-    if (enemySectors[i].nFactionID == 1) { f3Count++; }
+    if (enemySectors[i].nFactionID == 2) { f3Count++; }
   }
 
   int popFaction;
