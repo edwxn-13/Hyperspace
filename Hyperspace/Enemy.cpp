@@ -1,5 +1,9 @@
 #include "Enemy.h"
 
+/*
+ * Spawns enemy based on threat level
+ * Higher threat level will spawn more powerful enemys with more powerful equipment
+ */
 Enemy::Enemy(int threat) 
 {
   Ship newShip(threat);
@@ -25,7 +29,11 @@ Enemy::Enemy(int threat)
     mShip.setName("Heavy Assault Frigate");
   }
 }
-
+/*
+ * Enemy battle logic
+ * First attacks
+ * Decides if it wants to retreat
+ */
 Player Enemy::attack(GamePackage gamePackage)
 {
   Ship target = gamePackage.nUser.getShip();

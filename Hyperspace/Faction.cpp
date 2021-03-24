@@ -2,6 +2,9 @@
 #include <iostream>
 #include <math.h>
 #include "GameWorld.h"
+/*
+ *Initialises faction
+ */
 Faction::Faction()
 {
   nStorage.push_back(10000);

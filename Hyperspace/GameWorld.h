@@ -18,19 +18,19 @@ class Sector
 {
 public:
   Sector();
-  Sector(int,int);
+  Sector(int,int); // Constucter, sets coordinates and generates attributes
   void setPlanet(Planet);
-  void liberate();
-  void append(Sector);
-  void display();
-  void setDistance(int);
-  int getHash();
-  Planet getPlanet();
-  SpaceStation getStation();
+  void liberate(); // Makes the secotor free from any faction ownership
+  void append(Sector); // Links 2 sectors together on the jump gate network
+  void display(); // Displays the sectors attributes in a user interface friendly area
+  void setDistance(int); //Sets the distance between the sector and the player
+  int getHash(); // Returns the hash of the sector, (xVal * yVal)
+  Planet getPlanet(); //Returns local planet
+  SpaceStation getStation(); //Returns local station
   void setStation(SpaceStation);
-  bool hasPlanet();
-  bool contains(Sector);
-  void toggleVisited();
+  bool hasPlanet(); //Returns true if the sector has a planet false if otherwise
+  bool contains(Sector); // Returns true if the parameter is contained in the sector's nList
+  void toggleVisited(); // Toggles bool isVisited
   void checkNeigbours(GameWorld);
   int getThreat();
   int getTech();
@@ -41,11 +41,11 @@ public:
   int xVal, yVal;
   int nNeigbours;
   bool nVisited;
-  int nDistanceFromPlayer;
-  int nThreat;
-  int nTechLevel;
+  int nDistanceFromPlayer; // Distance from sector to player's current sector
+  int nThreat; // Determines the strength of enemys that can spawn in the sector
+  int nTechLevel; // Determmines what technology can spawn in the sector
   int nSectorCount;
-  int nSearchHash;
+  int nSearchHash; // The hash of the sector
   Planet nLocalPlanet;
   SpaceStation nLocalStation;
 };
@@ -60,13 +60,13 @@ public:
   NaturalResource::RContainer nWorldResources;
   bool CheckDuplicates(Sector,Sector);
   std::vector<Sector> SortList(std::vector<Sector>);
-  void Generate(int);
+  void Generate(int); // Generates graph using the rootNode
 public:
   std::vector<Sector> UniverseList;
 
   GameWorld();
   GameWorld(int);
-  void initialize();
+  void initialize(); // Generates sectors
   std::vector<Sector> getWorld();
   void update(GameWorld);
   int getSize();

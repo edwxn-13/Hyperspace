@@ -5,9 +5,9 @@ class HQueue
 {
 public:
   HQueue();
-  void enQueue(Sector);
-  Sector deQueue();
-  int size();
+  void enQueue(Sector); // Adds sector to the queue
+  Sector deQueue(); // Pops sector from the queue
+  int size(); // 
   bool contains(Sector);
 private:
   int pointer;

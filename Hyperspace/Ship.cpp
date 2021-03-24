@@ -41,9 +41,9 @@ Ship::Ship(std::string name, int shields, int armour, int fuel, int price)
   fuel = oFuel;
   mShields = oShields;
   mArmour = oArmour;
-  nSystems.push_back(ShipSystem("Thrusters"));
-  nSystems.push_back(ShipSystem("Shield Emitter"));
-  nSystems.push_back(ShipSystem("Weapons"));
+  nSystems.push_back(ShipSystem("Thrusters")); //Makes new subsystem called Thrusters
+  nSystems.push_back(ShipSystem("Shield Emitter"));//Makes new subsystem called Shield Emitter
+  nSystems.push_back(ShipSystem("Weapons"));//Makes new subsystem called Weapons
 }
 
 Ship::Ship(int threat)
@@ -55,9 +55,9 @@ Ship::Ship(int threat)
   fuel = oFuel;
   mShields = oShields;
   mArmour = oArmour;
-  nSystems.push_back(ShipSystem("Thrusters"));
-  nSystems.push_back(ShipSystem("Shield Emitter"));
-  nSystems.push_back(ShipSystem("Weapons"));
+  nSystems.push_back(ShipSystem("Thrusters")); //Makes new subsystem called Thrusters
+  nSystems.push_back(ShipSystem("Shield Emitter")); //Makes new subsystem called Shield Emitter
+  nSystems.push_back(ShipSystem("Weapons")); //Makes new subsystem called Weapons
 }
 
 void Ship::makeShields(int newVal)
