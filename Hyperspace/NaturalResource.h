@@ -10,16 +10,16 @@ public:
   };
 private:
   std::string name;
-  float nQuanitiy;
-  int nID;
-  float nScarcity;
-  float nRegenRate;
-  float nDangerValue;
-  float nPrice;
+  float nQuanitiy; // Total amount of resource in the world
+  int nID; // Identification number
+  float nScarcity; // How rare it is to find, determines mining success
+  float nRegenRate; // How fast the resource regenerates in world
+  float nDangerValue; // The amount at which more resource is spawned to avoid negative values
+  float nPrice; // base price of resource
 public:
   NaturalResource(float quantity, int id, float scarcity, float regen, float dangerValue, float price);
-  float getScarcity();
-  float getQuantity();
+  float getScarcity(); // returns scarcity
+  float getQuantity(); // returns quantity
   void setQuantity(float newVal);
 };
 

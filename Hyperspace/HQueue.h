@@ -7,10 +7,10 @@ public:
   HQueue();
   void enQueue(Sector); // Adds sector to the queue
   Sector deQueue(); // Pops sector from the queue
-  int size(); // 
-  bool contains(Sector);
+  int size(); // Size of queue
+  bool contains(Sector); // Returns if the queue contains @param
 private:
-  int pointer;
-  std::vector<Sector> queueList;
+  int pointer; // front pointer
+  std::vector<Sector> queueList; // base list
 };
 

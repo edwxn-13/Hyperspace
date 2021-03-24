@@ -16,13 +16,13 @@ public:
   };
 
   Faction();
-  Faction(std::string name, NaturalResource::RContainer rContainer , int type);
-  float getCapital();
+  Faction(std::string name, NaturalResource::RContainer rContainer , int type); 
+  float getCapital(); // Returns total amount of money
   void factionUpdate(FContainer fContainer, NaturalResource::RContainer rContainer);
   void dailySpening(NaturalResource::RContainer rContainer);
   void market(Faction::FContainer fContainer, NaturalResource::RContainer rContainer, float supplyVal);
   float mine(NaturalResource::RContainer rContainer, int index);
-  int sectorCount(GameWorld);
+  int sectorCount(GameWorld); // Returns total amout of owned sectos
 private:
   std::string nName;
   std::string nDesc;

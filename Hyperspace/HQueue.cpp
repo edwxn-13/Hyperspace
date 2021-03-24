@@ -7,14 +7,14 @@ HQueue::HQueue()
 
 void HQueue::enQueue(Sector newVal)
 {
-  queueList.push_back(newVal);
+  queueList.push_back(newVal); // Adds to queue
 }
 
 Sector HQueue::deQueue()
 {
   Sector returnSec = queueList[pointer];
-  pointer++;
-  return returnSec;
+  pointer++; // Increments pointer
+  return returnSec; // Returns sector
 }
 /*
  Returns size of queue
@@ -28,7 +28,7 @@ bool HQueue::contains(Sector testSec)
 {
   for (int i = 0; i < queueList.size(); i++) 
   {
-    if (queueList[i].getHash() == testSec.getHash()) { return true; }
+    if (queueList[i].getHash() == testSec.getHash()) { return true; } // Iterates through list until it finds the mathing hash
   }
   return false;
 }

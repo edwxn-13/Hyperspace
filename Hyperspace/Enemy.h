@@ -9,9 +9,9 @@
 class Enemy
 {
 private:
-  Ship mShip;
-  Faction nFaction;
-  std::vector<Equipment> mInventory;
+  Ship mShip;// Enemy Ship 
+  Faction nFaction; // Enemy Faction
+  std::vector<Equipment> mInventory;// Enemy weapons
 public:
   Enemy(int);
   Player attack(GamePackage);

@@ -4,6 +4,10 @@ SpaceStation::SpaceStation()
 {
 }
 
+/*
+* Adds stock to the store depending on tech level
+* the higher the tech level the more powerful the equipment
+*/
 SpaceStation::SpaceStation(int tech)
 {
   if (tech == 1) 
@@ -43,24 +47,30 @@ SpaceStation::SpaceStation(int tech)
   }
 }
 
+/*
+* Allows the user to buy the item they select
+*/
 Player SpaceStation::market(Player user)
 {
   int input;
   std::cin >> input;
   if (input < 5)
   {
-    user.purchase(nShop[input - 1]);
+    user.purchase(nShop[input - 1]); // User buys a weapon if input is less than 5
   }
 
   else
   {
-    user.purchase(nHanger[input - nShop.size() - 1]);
+    user.purchase(nHanger[input - nShop.size() - 1]); // Any other input the user buys a ship
   }
 
   return user;
 }
 
-void SpaceStation::displayGoods()
+/*
+* Displays the store listings
+*/
+void SpaceStation::displayGoods() 
 {
   std::cout << "\nWeapons: \n\n";
   for (int i = 0; i < nShop.size(); i++) 
