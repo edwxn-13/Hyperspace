@@ -5,15 +5,12 @@
 
 /*
 * 
-* The Main Menu 
-* 
- Contains scripts used for navigating from
- planet to planet and system to system.
- Also triggers encounter logic.
- Refreshes sector
- */
-/*/
- Displays the main menu where the user can acces the various parts of the game.
+* The main menu 
+* Contains scripts used for navigating from
+* planet to planet and system to system.
+* Also triggers encounter logic.
+* Refreshes sector
+* Displays the main menu where the user can acces the various parts of the game.
  */
 Player DisplayMenu(GamePackage gamePackage)
 {
@@ -25,8 +22,8 @@ Player DisplayMenu(GamePackage gamePackage)
     {
       std::cout << "Select Option\n";
 
-      std::cin >> inputValue;
-    } while (inputValue > 5 && inputValue < 1);
+      inputValue = integerInput(); // Takes player input
+    } while (inputValue > 5 && inputValue < 1); //Loop ensures users input is acceptable
   }
 
   else 
@@ -36,9 +33,9 @@ Player DisplayMenu(GamePackage gamePackage)
     {
       std::cout << "\nSelect Option: ";
 
-      inputValue = integerInput();
+      inputValue = integerInput(); // Takes player input
       std::cout << "\n";
-    } while (inputValue > 4 && inputValue < 1);
+    } while (inputValue > 4 && inputValue < 1); //Loop ensures users input is acceptable
   }
 
   switch (inputValue)
@@ -47,21 +44,22 @@ Player DisplayMenu(GamePackage gamePackage)
     DisplayMenu(gamePackage);
     break;
   case 1:
-    DisplayMap(gamePackage);
-    gamePackage.nUser.setSector(JumpDrive(gamePackage));
-    gamePackage = InitEncoutner(gamePackage);
-    gamePackage.nGameWorld.update(gamePackage.nGameWorld);
+    DisplayMap(gamePackage); // All coordinates are displayed
+    gamePackage.nUser.setSector(JumpDrive(gamePackage)); // User selects and travels to sector
+    gamePackage = InitEncoutner(gamePackage); // Encounter is triggered
+    gamePackage.nGameWorld.update(gamePackage.nGameWorld); // All sector faction data is updated
     break;
   case 2:
-    gamePackage.nUser = ViewInventory(gamePackage.nUser);
+    gamePackage.nUser = ViewInventory(gamePackage.nUser); // Inventory management screen is activated
     break;
   case 3:
+    std::cout << "\n\n<<Survive>>\n\n";
     break;
   case 4:
-    if (!gamePackage.nUser.CurrentSector.hasPlanet())
+    if (!gamePackage.nUser.CurrentSector.hasPlanet()) //If there is no planet, station interface is activated
       gamePackage.nUser = ViewStation(gamePackage.nUser);
     else
-      ViewPlanet(gamePackage);
+      ViewPlanet(gamePackage); // Else planet data and information are shown
     break;
   case 5:
     break;
@@ -78,12 +76,12 @@ Player ViewInventory(Player user)
   int inputValue;
   for (int i = 0; i < user.getInventroy().size(); i++) 
   {
-    std::cout << "\n"<< i + 1 << ". " << user.getCargo(i).getName();
+    std::cout << "\n"<< i + 1 << ". " << user.getCargo(i).getName(); // Retrieves all the players inventory items
   }
-  std::cout << "\n\n Select Item: ";
-  inputValue = integerInput();
+  std::cout << "\n\n Select Item: "; 
+  inputValue = integerInput(); // User input is taken
   std::cout << "\n";
-  user = ItemSettings(inputValue, user);
+  user = ItemSettings(inputValue, user); // Item settings are displayed for selected item
   return user;
 }
 
@@ -127,8 +125,6 @@ Player ViewStation(Player user)
     case 3:
       break;
     case 4:
-      break;
-    case 5:
       break;
     }
 
@@ -211,7 +207,7 @@ Sector sectorSearch(GamePackage gamePackage)
 {
   while (true) 
   {
-    std::cout << "<<Select Your Destination >>\n";
+    std::cout << "\n\n<<Select Your Destination >>\n";
     int x, y;
     std::cout << "<<X>> :";
     x = integerInput();
@@ -245,13 +241,13 @@ Sector JumpDrive(GamePackage gamePackage)
   route.enQueue(gamePackage.nUser.CurrentSector);
   route = FindRoute(gamePackage.nUser.CurrentSector, destination, route);
   std::cout << "\n\n<<Initiating Jump>>\n";
-  while (gamePackage.nUser.getShip().getFuel() != 0)
+  while (gamePackage.nUser.getShip().getFuel() != 0) // If the player has fuel in their ship they can travel, otherwise they cannot
   {
-    if (route.size() > 0) 
+    if (route.size() > 0) //To avoid an out of range error. deQueues the queue until it is empty
     { 
-      destination = route.deQueue();
-      std::cout << "\n<<" << destination.getHash() << ">>\n\n";
-      gamePackage.nUser.getShip().burnFuel(50);
+      destination = route.deQueue(); // Destination is set to the returned sector, if the fuel runs out mid jump, they will be dumped as far as they can go
+      std::cout << "\n\n <<" << destination.xVal << " , " << destination.yVal <<">>\n\n";  // Displays every sector traversed through on the route
+      gamePackage.nUser.getShip().burnFuel(50); // Spends fuel for every sector jump
     }
 
     else { break; }
@@ -294,7 +290,6 @@ HQueue FindRoute(Sector currentNode, Sector destination , HQueue route)
     }
   }
   std::cout << "\n";
-  closestNode.display(); 
   route.enQueue(closestNode); //Adds the new closest node to the queue so it is shown on the route the player takes through the system
   FindRoute(closestNode, destination, route); //Recurs until the target sector is found or all options have been exhausted. 
   return route; //Returns queue

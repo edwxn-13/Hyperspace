@@ -6,6 +6,7 @@ class Planet
 {
 public:
   Planet();
+  Planet(int);
   Planet(int , int);
   int pExist;
   void setName(std::string);

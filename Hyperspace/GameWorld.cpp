@@ -30,6 +30,11 @@ void Sector::setDistance(int val)
   nDistanceFromPlayer = val;
 }
 
+void Sector::setFaction(int newVal)
+{
+  nFactionID = newVal;
+}
+
 /*
 * Returns identifying hash made from multiplying both coordinates together
 */
@@ -69,16 +74,16 @@ void Sector::checkNeigbours(GameWorld world)
   int range;
   std::vector<Sector> closeSectors;
   std::vector<Sector> enemySectors;
-  for (int i = 0; i < world.UniverseList.size(); i++) 
+  for (int i = 0; i < world.UniverseList.size(); i++)  // Iterates through all sectors
   {
-    if (world.UniverseList[i].xVal < (xVal + 100) && world.UniverseList[i].yVal < (yVal + 100)) 
+    if (world.UniverseList[i].xVal < (xVal + 100) && world.UniverseList[i].yVal < (yVal + 100)) // finds all sectors in a range of 100
     {
-      if (nFactionID == world.UniverseList[i].nFactionID)
+      if (nFactionID == world.UniverseList[i].nFactionID) // Finds allied sectors
       {
         closeSectors.push_back(world.UniverseList[i]);
       }
 
-      else 
+      else // Therefore these are enemy sectors
       {
         enemySectors.push_back(world.UniverseList[i]);
       }
@@ -90,21 +95,21 @@ void Sector::checkNeigbours(GameWorld world)
   switch (track.popularID)
   {
   case 1:
-    if (track.f1 > 2) 
+    if (track.f1 > 2) // If there are more than 2 neighbours belonging to faction 1
     {
-      nFactionID = track.popularID;
+      nFactionID = track.popularID; // Sector now belongs to faction 1
     }
     break;
   case 2:
-    if (track.f2 > 2)
+    if (track.f2 > 2) // If there are more than 2 neighbours belonging to faction 2
     {
-      nFactionID = track.popularID;
+      nFactionID = track.popularID; // Sector now belongs to faction 1
     }
     break;
   case 3:
-    if (track.f3 > 2)
+    if (track.f3 > 2) // If there are more than 2 neighbours belonging to faction 3
     {
-      nFactionID = track.popularID;
+      nFactionID = track.popularID; // Sector now belongs to faction 1
     }
     break;
   }
@@ -157,7 +162,7 @@ int Sector::factionCount()
   return count;
 }
 
-
+//Compares the amount of enemy factions belonging to each faction and returns the enemy faction with the greatest amout of non allied fsectors
 NeighbourFactionCount Sector::PopularFaction(std::vector<Sector> enemySectors) 
 {
   int f1Count = 0;
@@ -171,7 +176,6 @@ NeighbourFactionCount Sector::PopularFaction(std::vector<Sector> enemySectors)
   }
 
   int popFaction;
-
   if(f1Count > f2Count)
   {
     if (f3Count > f1Count) { popFaction = 3; return NeighbourFactionCount(f1Count, f2Count, f3Count, popFaction);}
@@ -195,7 +199,7 @@ NeighbourFactionCount Sector::PopularFaction(std::vector<Sector> enemySectors)
   return NeighbourFactionCount();
 }
 
-//Connects secotrs together by adding it the array. w
+//Connects secotrs together by adding it the array. 
 //@args Sector childSector
 void Sector::append(Sector childSector) 
 {
@@ -204,7 +208,7 @@ void Sector::append(Sector childSector)
 
 void Sector::display()
 {
-  std::cout << "Sector: <<" << xVal << "," << yVal << ">>\n" << "Faction: " << nFactionID;
+  std::cout << "  Sector: <<" << xVal << "," << yVal << ">>\n" << "  Faction: " << nFactionID;
 }
 
 bool Sector::hasPlanet() 
@@ -248,14 +252,21 @@ GameWorld::GameWorld()
   
 }
 
+/*
+* Initialized gameworld, takes size parameter which defines how many sectors the universe will have
+*/
+
 GameWorld::GameWorld(int sizeVal)
 {
-  nWorldResources.nResourceList.push_back(NaturalResource(100000, 0, 0.9, 1.62, 2000, 10));
-  nWorldResources.nResourceList.push_back(NaturalResource(100000, 1, 0.45, 1.3, 1000, 20));
+  nWorldResources.nResourceList.push_back(NaturalResource(100000, 0, 0.9, 1.62, 2000, 10)); // Pushes back main 3 natural resources in the game. 
+  nWorldResources.nResourceList.push_back(NaturalResource(100000, 1, 0.45, 1.3, 1000, 20)); // Game is scalable so any amount of resources can be added
   nWorldResources.nResourceList.push_back(NaturalResource(50000, 2, 0.1, 1.01, 200, 95));
 
-  gameFactions.nFactionList.push_back(Faction("The Mesaron Commonwealth", nWorldResources, 2));
-  gameFactions.nFactionList.push_back(Faction("The Federation", nWorldResources, 1));
+  // 0 - main resource is carbon fibre
+  // 1 - main resource is water
+  // 2 - main resource is xeon
+  gameFactions.nFactionList.push_back(Faction("The Mesaron Commonwealth", nWorldResources, 2)); // Defines main 3 factions in game
+  gameFactions.nFactionList.push_back(Faction("The Federation", nWorldResources, 1)); // Game is scalable so any amount of factions can be added
   gameFactions.nFactionList.push_back(Faction("The Free Nations of Kaytions", nWorldResources, 0));
   nSize = sizeVal;
   nGenNum = 0;
@@ -291,29 +302,30 @@ void GameWorld::initialize()
   
   for (int i = 0; i < nSize; i++) // Creaes the nodes
   {
-    xVal = rand() % 2400;
-    yVal = rand() % 2400;
+    xVal = rand() % 2400; //Random x coordinate
+    yVal = rand() % 2400; //Random y coordinate
     
     Sector tempSector(xVal,yVal);
-    tempSector.nTechLevel = rand() % 5;
-    tempSector.nThreat = rand() % 4;
+    tempSector.nTechLevel = rand() % 5; // Random tech level
+    tempSector.nThreat = rand() % 4; // Random threat level
     int planetC = rand() % 2; // does the sector contain a planet?
 
-    if (planetC == 1)
+    if (planetC == 1) // Adds planet to sector
     {
       Planet tempPlanet(tempSector.getTech(), tempSector.getThreat());
       tempSector.setPlanet(tempPlanet);
+      tempSector.setFaction(rand()%3);
     }
-    else
+    else // Adds station to sector
     {
       SpaceStation tempStation = SpaceStation(tempSector.getTech());
+      tempSector.setPlanet(Planet(0));
       tempSector.setStation(tempStation);
     }
-    std::cout << "\n<<" << xVal << " , " << yVal << ">>\n";
     UniverseList.push_back(tempSector);
   }
   
-  Generate(0);
+  Generate(0); // Generates graph with sectors
   //UniverseList = sortList(UniverseList);
 }
 

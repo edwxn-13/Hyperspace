@@ -24,6 +24,7 @@ public:
   void append(Sector); // Links 2 sectors together on the jump gate network
   void display(); // Displays the sectors attributes in a user interface friendly area
   void setDistance(int); //Sets the distance between the sector and the player
+  void setFaction(int);
   int getHash(); // Returns the hash of the sector, (xVal * yVal)
   Planet getPlanet(); //Returns local planet
   SpaceStation getStation(); //Returns local station

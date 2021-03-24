@@ -5,6 +5,11 @@ Planet::Planet()
   pExist = 1;
 }
 
+Planet::Planet(int newVal)
+{
+  pExist = 0;
+}
+
 Planet::Planet(int tech ,int threat)
 {
   int iD = rand() % 590;

@@ -34,6 +34,7 @@ Ship::Ship()
 
 Ship::Ship(std::string name, int shields, int armour, int fuel, int price)
 {
+  mShipName = name;
   nPrice = price;
   oFuel = fuel;
   oShields = shields;
