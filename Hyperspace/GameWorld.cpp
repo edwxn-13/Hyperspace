@@ -347,7 +347,7 @@ std::vector<Sector> GameWorld::SortList(std::vector<Sector> rootList)
 */
 bool GameWorld::CheckDuplicates(Sector rootNode, Sector childNode)
 {
-  if (rootNode.getHash() == childNode.getHash()) 
+  if (rootNode.getHash() == childNode.getHash()) // If hashes are equal return true else do not
   {
     return true;
   }
@@ -372,52 +372,30 @@ bool GameWorld::CheckDuplicates(Sector rootNode, Sector childNode)
 
 void GameWorld::Generate(int index)
 {
-  nGenNum++;
-  if (nGenNum > nSize) 
+  nGenNum++; // Generation number increments 
+  if (nGenNum > nSize)  // Function stops when genNum reaches game world size
   {
     return;
   }
 
-  for (int i = 0; i < nSize - (rand() % nSize - 1); i++) 
+  for (int i = 0; i < nSize - (rand() % nSize - 1); i++) // Adds a random proportion of the sectors to a root sector
   {
     int randSectorIndex;
     do 
     {
-      randSectorIndex = (rand() % UniverseList.size() - 1);
-    } while (randSectorIndex < 0);
+      randSectorIndex = (rand() % UniverseList.size() - 1); // Generates index of random child sector
+    } while (randSectorIndex < 0); // Ensures no out of range error
 
-    if (CheckDuplicates(UniverseList[index],UniverseList[randSectorIndex]) == false)
+    if (CheckDuplicates(UniverseList[index],UniverseList[randSectorIndex]) == false) //Ensures an identical sector is not added to the root sector
     {
-      UniverseList[index].append(UniverseList[randSectorIndex]);
+      UniverseList[index].append(UniverseList[randSectorIndex]); // Adds child sector
       UniverseList[randSectorIndex].append(UniverseList[index]);
-      Generate(randSectorIndex);
+      Generate(randSectorIndex); // Repeats process with child sector
     }
   }
 
 }
 
-/*Sector GameWorld::Generate(Sector rootNode)
-{
-  srand(time(0));
-  nGenNum++;
-  
-  if(nGenNum > nSize - 1)
-  {
-    return rootNode;
-  }
-  
-  for(int i = 0; i < (rand() % (nSize)); i++)
-  {
-    int ranint = rand() % nSize;
-    Sector childSector = Generate(UniverseList[ranint]);
-    
-    if(!CheckDuplicates(rootNode, childSector))
-    {
-      rootNode.nList.push_back(childSector);
-    }
-  }
-  return rootNode;
-}*/
 
 /*/
  Factions update their terratories by calculating the amount of faction

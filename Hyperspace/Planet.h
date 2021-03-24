@@ -8,9 +8,9 @@ public:
   Planet();
   Planet(int);
   Planet(int , int);
-  int pExist;
+  int pExist; // If the planet exists 
   void setName(std::string);
-  void displayStats();
+  void displayStats(); // Displays attributes such as name and planet radius and any other details
   std::string getName();
 private:
   std::string nName;
@@ -18,6 +18,6 @@ private:
   int nTechLevel;
   int nThreatLevel;
   int radius;
-  int resourceID;
+  int resourceID; // What natural resource the planet contains
 };
 
