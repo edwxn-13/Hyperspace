@@ -4,7 +4,6 @@
 #include <string>
 #include "SpaceStation.h"
 #include "Faction.h"
-// Make it a graph to secure these marks bout this paper
 class GameWorld;
 
 struct NeighbourFactionCount {
@@ -38,7 +37,7 @@ public:
   int factionCount();
   NeighbourFactionCount PopularFaction(std::vector<Sector>);
   std::vector<Sector> nList;
-  int nFactionID;
+  int nFactionID; // Faction Identifier
   int xVal, yVal;
   int nNeigbours;
   bool nVisited;
