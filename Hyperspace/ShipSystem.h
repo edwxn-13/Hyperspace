@@ -1,5 +1,8 @@
 #pragma once
 #include <string>
+/*
+* Defines the Ship Subsystems responible for allowing a part of a ship to function
+*/
 class ShipSystem 
 {
 public:

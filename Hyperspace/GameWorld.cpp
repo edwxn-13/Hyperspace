@@ -30,9 +30,12 @@ void Sector::setDistance(int val)
   nDistanceFromPlayer = val;
 }
 
+/*
+* Returns identifying hash made from multiplying both coordinates together
+*/
 int Sector::getHash()
 {
-    return xVal * yVal;
+  return xVal * yVal;
 }
 
 //Sets planet value

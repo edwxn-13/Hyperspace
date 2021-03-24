@@ -4,10 +4,13 @@
 #include <math.h>
 
 /*
+* 
+* The Main Menu 
+* 
  Contains scripts used for navigating from
  planet to planet and system to system.
- 
  Also triggers encounter logic.
+ Refreshes sector
  */
 /*/
  Displays the main menu where the user can acces the various parts of the game.
@@ -15,9 +18,9 @@
 Player DisplayMenu(GamePackage gamePackage)
 {
   int inputValue;
-  if (gamePackage.nUser.CurrentSector.hasPlanet()) 
+  if (gamePackage.nUser.CurrentSector.hasPlanet()) //If there is a planet the menu changes to accomodate that
   {
-    std::cout << "\n1.View Navigation: \n2.View Inventroy: \n3.View Objectives: \n4.View Station: \n5.View Planet: ";
+    std::cout << "\n1.View Navigation: \n2.View Inventroy: \n3.View Objectives: \n4.View Planet:";
     do
     {
       std::cout << "Select Option\n";
@@ -33,7 +36,7 @@ Player DisplayMenu(GamePackage gamePackage)
     {
       std::cout << "\nSelect Option: ";
 
-      std::cin >> inputValue;
+      inputValue = integerInput();
       std::cout << "\n";
     } while (inputValue > 4 && inputValue < 1);
   }
@@ -44,6 +47,7 @@ Player DisplayMenu(GamePackage gamePackage)
     DisplayMenu(gamePackage);
     break;
   case 1:
+    DisplayMap(gamePackage);
     gamePackage.nUser.setSector(JumpDrive(gamePackage));
     gamePackage = InitEncoutner(gamePackage);
     gamePackage.nGameWorld.update(gamePackage.nGameWorld);
@@ -54,10 +58,12 @@ Player DisplayMenu(GamePackage gamePackage)
   case 3:
     break;
   case 4:
-    gamePackage.nUser = ViewStation(gamePackage.nUser);
+    if (!gamePackage.nUser.CurrentSector.hasPlanet())
+      gamePackage.nUser = ViewStation(gamePackage.nUser);
+    else
+      ViewPlanet(gamePackage);
     break;
   case 5:
-    ViewPlanet(gamePackage);
     break;
   }
 
@@ -128,6 +134,10 @@ Player ViewStation(Player user)
 
   return user;
 }
+
+/*
+* Input validates any integer input ensuring there are not unaccepted characters
+*/
 int integerInput()
 {
   int inputValue;
@@ -148,11 +158,11 @@ int integerInput()
 Player ItemSettings(int type, Player user) 
 {
   int inputValue;
-  std::cout << "\n1.Equip: \n2.Sell: \n3.View Stats: \n";
+  std::cout << "\n1.Equip: \n2.Sell: \n3.View Stats: \n"; //Displays menu
   do
   {
     std::cout << "Select Option: ";
-    inputValue = integerInput();
+    inputValue = integerInput(); //Takes input
     std::cout << "\n";
   } while (inputValue > 5 && inputValue < 1);
 
@@ -161,13 +171,13 @@ Player ItemSettings(int type, Player user)
   default:
     break;
   case 1:
-    user.toggleEquip(type);
+    user.toggleEquip(type); //Equips itemn at index type
     break;
   case 2:
-    user.sell(type);
+    user.sell(type); //Sells item at index type
     break;
   case 3:
-    user.displayStats(type);
+    user.displayStats(type); //Displays the information about the weapon at index type
     break;
   }
 
@@ -183,16 +193,14 @@ GamePackage InitEncoutner(GamePackage gamePackage)
   return Encounter.CombatInit(gamePackage);
 }
 
+/*
+* Displays the coordinates of every sector
+*/
 void DisplayMap(GamePackage gamePackage)
 {
-  for (int i = 0; i < gamePackage.nGameWorld.UniverseList.size() - 1;i++) 
+  for (int i = 0; i < gamePackage.nGameWorld.UniverseList.size(); i++) 
   {
-    std::cout << "Sector: " << gamePackage.nGameWorld.UniverseList[i].xVal << " : " << gamePackage.nGameWorld.UniverseList[i].yVal << "\n";
-    for (int j = 0; j < gamePackage.nGameWorld.UniverseList[i].nList.size() - 1; i++) 
-    {
-      std::cout << "Child: " << gamePackage.nGameWorld.UniverseList[i].xVal << " : " << gamePackage.nGameWorld.UniverseList[i].yVal << "  ";
-    }
-    std::cout << "\n";
+    gamePackage.nGameWorld.UniverseList[i].display();
   }
 }
 
@@ -213,7 +221,7 @@ Sector sectorSearch(GamePackage gamePackage)
     int hash = x * y;
 
     std::cout << "\n<<Searching Coordinates>>\n";
-
+    //Searches the list for the sector with a mathcing hash to the coordinates provided by the player
     for (int i = 0; i < gamePackage.nGameWorld.getSize(); i++) 
     {
       if (gamePackage.nGameWorld.UniverseList[i].getHash() == hash) 
@@ -255,38 +263,41 @@ Sector JumpDrive(GamePackage gamePackage)
 }
 /*
  Searches the graph for the user selected sector
+ Returns queue containing the sectors that were travelled through to reach the destination
  */
 HQueue FindRoute(Sector currentNode, Sector destination , HQueue route)
 { 
-  currentNode.toggleVisited();
-  Sector closestNode(0,0);
-  int smallest_distance = 999999999;
+  Sector closestNode(0,0); // Sets the closest node to an impossible value so its always replaced
+  int smallest_distance = 999999999; // Sets smallest_distance to large value so its always replaced
   int distance = 0;
-  if (currentNode.getHash() == destination.getHash()) 
+  if (currentNode.getHash() == destination.getHash())  // Compares the hash of the destination sector and the player's current sector as a completion state
   {
     std::cout << "Jumping to " << destination.nSearchHash << "\n";
     return route;
   }
+  /*
+  * If the sector the player searches for is not on the jump gate network, they will be returned to the sector they started in
+  */
   if (currentNode.xVal == 0) { return route; }
   for (int i = 0; i < currentNode.nList.size(); i++)
   {
-    if (!route.contains(currentNode.nList[i])) 
+    if (!route.contains(currentNode.nList[i]))  // Ensures the sector has not been visited in this jump instance, stops algorithm traveling backwards
     {
-      distance = CalculateDistance(currentNode.nList[i], currentNode);
+      distance = CalculateDistance(currentNode.nList[i], currentNode); //Calculates distance
       currentNode.nList[i].setDistance(distance);
-      if (distance < smallest_distance)
+      if (distance < smallest_distance) //Compares the distance of all the child sectors of the root sector and finds the shortest.
       {
        
         smallest_distance = distance;
-        closestNode = currentNode.nList[i];
+        closestNode = currentNode.nList[i]; // Sets the node that is the closest
       }
     }
   }
   std::cout << "\n";
-  closestNode.display();
-  route.enQueue(closestNode);
-  FindRoute(closestNode, destination, route);
-  return route;
+  closestNode.display(); 
+  route.enQueue(closestNode); //Adds the new closest node to the queue so it is shown on the route the player takes through the system
+  FindRoute(closestNode, destination, route); //Recurs until the target sector is found or all options have been exhausted. 
+  return route; //Returns queue
 }
 
 /*
