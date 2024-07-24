@@ -1,1 +1,5 @@
-My unfinished high school project 0 _ 0
+# Hyperspace (my unfinished high school project)
+
+A sort of procedurally generated text based space adventure!
+
+might compile who knows
